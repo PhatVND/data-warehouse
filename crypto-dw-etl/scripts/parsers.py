@@ -1,9 +1,14 @@
 import re
 from datetime import datetime, timezone
 
+try:
+    from dateutil import parser as date_parser
+except ImportError:
+    date_parser = None
+
 
 def is_empty(v):
-    """Replace pandas.isna() with a lightweight helper."""
+    """Lightweight empty-value check used across parser helpers."""
     if v is None:
         return True
     s = str(v).strip().lower()
@@ -12,8 +17,8 @@ def is_empty(v):
 
 def parse_volume(v):
     """
-    Parse volume values for crypto data.
-    Keep float precision instead of coercing to int.
+    Parse volume values while preserving crypto precision.
+    Supports numeric strings and K/M/B suffixes.
     """
     if is_empty(v):
         return None
@@ -38,7 +43,7 @@ def parse_volume(v):
 
 
 def parse_number(s):
-    """Normalize numeric strings and convert to float."""
+    """Normalize a numeric string and convert it to float."""
     if is_empty(s):
         return None
 
@@ -51,7 +56,8 @@ def parse_number(s):
 
 def parse_date(s):
     """
-    Parse standard date strings and Binance epoch milliseconds.
+    Parse dates from Binance epoch values or common string formats.
+    ISO-style formats are prioritized so YYYY-MM-DD is preserved correctly.
     """
     if is_empty(s):
         return None
@@ -67,9 +73,36 @@ def parse_date(s):
         except Exception:
             pass
 
-    try:
-        from dateutil import parser
+    iso_like_patterns = [
+        "%Y-%m-%d",
+        "%Y/%m/%d",
+        "%Y-%m-%d %H:%M:%S",
+        "%Y/%m/%d %H:%M:%S",
+        "%Y-%m-%dT%H:%M:%S",
+        "%Y-%m-%dT%H:%M:%SZ",
+    ]
+    for fmt in iso_like_patterns:
+        try:
+            return datetime.strptime(v, fmt).date()
+        except ValueError:
+            continue
 
-        return parser.parse(v, dayfirst=True).date()
+    common_patterns = [
+        "%d/%m/%Y",
+        "%m/%d/%Y",
+        "%d-%m-%Y",
+        "%m-%d-%Y",
+    ]
+    for fmt in common_patterns:
+        try:
+            return datetime.strptime(v, fmt).date()
+        except ValueError:
+            continue
+
+    if date_parser is None:
+        return None
+
+    try:
+        return date_parser.parse(v).date()
     except Exception:
         return None
