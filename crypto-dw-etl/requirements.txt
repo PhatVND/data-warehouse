@@ -1,0 +1,13 @@
+# ============================================================================
+# CryptoDW-ETL — Python dependencies
+# Install: pip install -r requirements.txt
+# ============================================================================
+
+# --- Ingestion (TV1) ---
+requests>=2.28,<3              # Binance REST API calls
+
+# --- Parsers (TV1) ---
+python-dateutil>=2.8,<3        # Flexible date parsing fallback in parsers.py
+
+# --- Testing ---
+pytest>=7.0,<9                 # Unit test runner for tests/
