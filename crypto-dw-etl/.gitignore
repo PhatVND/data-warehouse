@@ -1,2 +1,12 @@
 __pycache__/
 *.pyc
+
+# Local PostgreSQL data & logs (runtime, not source)
+.local_pgdata/
+.local_pglog/
+
+# Pentaho user config (may contain credentials/local paths)
+.kettle/
+
+# Pentaho binary installation (too large for Git)
+tools/pentaho/

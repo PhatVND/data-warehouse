@@ -1,14 +1,19 @@
--- ====================================================================
+-- ============================================================================
 -- Script: dim_date_seed.sql
--- Mục đích: Sinh dữ liệu tự động cho bảng gold.dim_date (Từ 2023 đến 2025)
+-- Mục đích: Sinh dữ liệu tự động cho bảng gold.dim_date.
 -- Dialect: PostgreSQL (Postgres 15)
--- Lưu ý: Chạy script này SAU KHI đã tạo bảng bằng 02_gold_ddl.sql
--- ====================================================================
+-- Lưu ý:
+--   - Chạy script này SAU KHI đã tạo bảng bằng 02_gold_ddl.sql.
+--   - Seed range được mở rộng động để không bị mất dữ liệu khi raw CSV
+--     vượt quá mốc 2025-12-31 trong các lần chạy sau.
+-- ============================================================================
 
 -- Xóa dữ liệu cũ (nếu có) để tránh duplicate khi chạy lại
 TRUNCATE TABLE gold.dim_date RESTART IDENTITY CASCADE;
 
--- Sinh chuỗi liên tục từng ngày sử dụng hàm generate_series của Postgres
+-- Sinh chuỗi liên tục từng ngày sử dụng hàm generate_series của Postgres.
+-- Bắt đầu từ đầu năm cách năm hiện tại 4 năm để luôn cover cửa sổ fetch
+-- ~730 ngày kể cả khi pipeline chạy ở các năm tiếp theo.
 INSERT INTO gold.dim_date (
     date_id, 
     full_date, 
@@ -43,8 +48,8 @@ SELECT
         ELSE FALSE 
     END                                         AS is_weekend
 FROM generate_series(
-    '2023-01-01'::timestamp, 
-    '2025-12-31'::timestamp, 
+    MAKE_DATE(EXTRACT(YEAR FROM CURRENT_DATE)::INT - 4, 1, 1)::timestamp,
+    MAKE_DATE(EXTRACT(YEAR FROM CURRENT_DATE)::INT + 1, 12, 31)::timestamp,
     '1 day'::interval
 ) d;
 

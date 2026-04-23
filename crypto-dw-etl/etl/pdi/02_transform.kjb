@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job>
+  <name>02_transform</name>
+  <description>TV3 Pentaho transform job for building staging.fact_prep from staging.ohlcv_raw.</description>
+  <extended_description/>
+  <job_version/>
+  <directory>/</directory>
+  <created_user>-</created_user>
+  <created_date>2026/04/22 23:00:00.000</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2026/04/22 23:00:00.000</modified_date>
+  <parameters>
+    <parameter>
+      <name>PG_HOST</name>
+      <default_value>127.0.0.1</default_value>
+      <description>PostgreSQL host</description>
+    </parameter>
+    <parameter>
+      <name>PG_PORT</name>
+      <default_value>5432</default_value>
+      <description>PostgreSQL port</description>
+    </parameter>
+    <parameter>
+      <name>PG_DATABASE</name>
+      <default_value>crypto_dw_etl</default_value>
+      <description>PostgreSQL database</description>
+    </parameter>
+    <parameter>
+      <name>PG_USER</name>
+      <default_value>postgres</default_value>
+      <description>PostgreSQL username</description>
+    </parameter>
+    <parameter>
+      <name>PG_PASSWORD</name>
+      <default_value></default_value>
+      <description>PostgreSQL password</description>
+    </parameter>
+  </parameters>
+  <slaveservers>
+  </slaveservers>
+  <job-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <size_limit_lines/>
+    <interval/>
+    <timeout_days/>
+  </job-log-table>
+  <jobentry-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+  </jobentry-log-table>
+  <channel-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+  </channel-log-table>
+  <pass_batchid>N</pass_batchid>
+  <shared_objects_file/>
+  <entries>
+    <entry>
+      <name>START</name>
+      <description>Start transform job</description>
+      <type>SPECIAL</type>
+      <start>Y</start>
+      <dummy>N</dummy>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>80</xloc>
+      <yloc>80</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>02_transform_fact_prep</name>
+      <description>Populate staging.fact_prep via Pentaho transformation.</description>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}/sub_transformations/02_transform_fact_prep.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>Y</clear_rows>
+      <clear_files>Y</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration/>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>280</xloc>
+      <yloc>80</yloc>
+      <attributes_kjc/>
+    </entry>
+  </entries>
+  <hops>
+    <hop>
+      <from>START</from>
+      <to>02_transform_fact_prep</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+  </hops>
+  <notepads>
+    <notepad>
+      <note>Run with parameters PG_HOST, PG_PORT, PG_DATABASE, PG_USER, PG_PASSWORD. This job delegates the full TV3 staging transform to the child transformation.</note>
+      <xloc>64</xloc>
+      <yloc>160</yloc>
+      <width>620</width>
+      <heigth>80</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>255</backgroundcolorgreen>
+      <backgroundcolorblue>204</backgroundcolorblue>
+      <bordercolorred>0</bordercolorred>
+      <bordercolorgreen>0</bordercolorgreen>
+      <bordercolorblue>0</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <attributes/>
+</job>
