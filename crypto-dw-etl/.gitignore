@@ -1,12 +1,33 @@
+# --- Python ---
 __pycache__/
 *.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
 
-# Local PostgreSQL data & logs (runtime, not source)
+# --- Project secrets (credentials, do NOT commit) ---
+.env
+.env.local
+.env.*.local
+
+# --- Local PostgreSQL data & logs (runtime, not source) ---
 .local_pgdata/
 .local_pglog/
 
-# Pentaho user config (may contain credentials/local paths)
+# --- Pentaho user config (may contain credentials/local paths) ---
 .kettle/
 
-# Pentaho binary installation (too large for Git)
+# --- Pentaho binary installation (too large for Git) ---
 tools/pentaho/
+
+# --- Pipeline runtime logs (keep folder via .gitkeep) ---
+logs/*
+!logs/.gitkeep
+
+# --- Editor / OS noise ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
