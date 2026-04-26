@@ -53,5 +53,17 @@ CREATE TABLE IF NOT EXISTS staging.fact_prep (
     PRIMARY KEY (date_id, coin_id)
 );
 
+-- Unique constraint to enforce dedup at DB level (TV2 deduplication safety net)
+CREATE UNIQUE INDEX IF NOT EXISTS uix_ohlcv_raw_symbol_time
+    ON staging.ohlcv_raw (symbol, open_time);
+
+-- Index to speed up reject audit queries (GROUP BY reject_reason)
+CREATE INDEX IF NOT EXISTS ix_reject_log_reason
+    ON staging.reject_log (reject_reason);
+
+-- ============================================================================
+-- Full-load reset (run before each pipeline execution)
+-- Called by 01_clean.kjb "Truncate staging tables" step
+-- ============================================================================
 TRUNCATE TABLE staging.ohlcv_raw;
 TRUNCATE TABLE staging.reject_log RESTART IDENTITY;

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job>
+  <name>01_clean</name>
+  <description>TV2 Pentaho cleaning job. Reads raw/*.csv, cleans OHLCV data, rejects invalid rows to staging.reject_log, and writes clean rows to staging.ohlcv_raw.</description>
+  <extended_description/>
+  <job_version/>
+  <directory>/</directory>
+  <created_user>-</created_user>
+  <created_date>2026/04/26 16:00:00.000</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2026/04/26 16:00:00.000</modified_date>
+  <parameters>
+    <parameter>
+      <name>PG_HOST</name>
+      <default_value>127.0.0.1</default_value>
+      <description>PostgreSQL host</description>
+    </parameter>
+    <parameter>
+      <name>PG_PORT</name>
+      <default_value>5432</default_value>
+      <description>PostgreSQL port</description>
+    </parameter>
+    <parameter>
+      <name>PG_DATABASE</name>
+      <default_value>crypto_dw_etl</default_value>
+      <description>PostgreSQL database</description>
+    </parameter>
+    <parameter>
+      <name>PG_USER</name>
+      <default_value>postgres</default_value>
+      <description>PostgreSQL username</description>
+    </parameter>
+    <parameter>
+      <name>PG_PASSWORD</name>
+      <default_value></default_value>
+      <description>PostgreSQL password</description>
+    </parameter>
+    <parameter>
+      <name>RAW_DIR</name>
+      <default_value>${Internal.Job.Filename.Directory}/../../../raw</default_value>
+      <description>Absolute or relative path to the raw/ directory containing *_raw.csv files</description>
+    </parameter>
+  </parameters>
+  <slaveservers>
+  </slaveservers>
+  <job-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <size_limit_lines/>
+    <interval/>
+    <timeout_days/>
+  </job-log-table>
+  <jobentry-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+  </jobentry-log-table>
+  <channel-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+  </channel-log-table>
+  <pass_batchid>N</pass_batchid>
+  <shared_objects_file/>
+  <entries>
+    <entry>
+      <name>START</name>
+      <description>Start cleaning job</description>
+      <type>SPECIAL</type>
+      <start>Y</start>
+      <dummy>N</dummy>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>80</xloc>
+      <yloc>100</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Truncate staging tables</name>
+      <description>Full-load pattern: truncate ohlcv_raw and reset reject_log before each run</description>
+      <type>SQL</type>
+      <sql>TRUNCATE TABLE staging.ohlcv_raw;
+TRUNCATE TABLE staging.reject_log RESTART IDENTITY;</sql>
+      <useVariableSubstitution>Y</useVariableSubstitution>
+      <sqlfromfile>N</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>N</sendOneStatement>
+      <connection>CryptoDW.PostgreSQL</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>280</xloc>
+      <yloc>100</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>01_clean_ohlcv</name>
+      <description>Run the main cleaning transformation against all raw CSV files</description>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>${Internal.Job.Filename.Directory}/sub_transformations/01_clean_ohlcv.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>Y</clear_rows>
+      <clear_files>Y</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration/>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>520</xloc>
+      <yloc>100</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Log reject count</name>
+      <description>Write reject summary to PDI log for audit trail</description>
+      <type>EVAL</type>
+      <script>var rejectQuery = "SELECT COUNT(*) FROM staging.reject_log";
+true;</script>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>760</xloc>
+      <yloc>100</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>SUCCESS</name>
+      <description>Cleaning job completed successfully</description>
+      <type>SPECIAL</type>
+      <start>N</start>
+      <dummy>Y</dummy>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1000</xloc>
+      <yloc>100</yloc>
+      <attributes_kjc/>
+    </entry>
+  </entries>
+  <hops>
+    <hop>
+      <from>START</from>
+      <to>Truncate staging tables</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Truncate staging tables</from>
+      <to>01_clean_ohlcv</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>01_clean_ohlcv</from>
+      <to>Log reject count</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Log reject count</from>
+      <to>SUCCESS</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+  </hops>
+  <notepads>
+    <notepad>
+      <note>TV2 — Pentaho Cleaning job (01_clean.kjb)
+
+Flow:
+  START
+    → Truncate staging.ohlcv_raw + staging.reject_log   (Full Load reset)
+    → 01_clean_ohlcv.ktr                                 (Read raw/*.csv, filter, dedupe, validate, write)
+    → Log reject count
+    → SUCCESS
+
+Parameters (pass via Kitchen or run_pipeline.bat):
+  PG_HOST, PG_PORT, PG_DATABASE, PG_USER, PG_PASSWORD
+  RAW_DIR  (default: ../../../raw relative to this file)
+
+Rejection rules (logged to staging.reject_log):
+  R1  open, high, low, or close is NULL or non-numeric
+  R2  volume is NULL, non-numeric, or negative
+  R3  high &lt; low
+  R4  open_time is NULL
+  R5  Duplicate (symbol, open_time) — keep first occurrence
+  R6  open_time in future (epoch_ms &gt; now)
+
+Symbol normalisation: strip trailing "USDT" suffix so "BTCUSDT" → "BTC".
+Date conversion: epoch_ms → DATE stored as open_time (BIGINT kept as-is in ohlcv_raw).
+</note>
+      <xloc>64</xloc>
+      <yloc>200</yloc>
+      <width>900</width>
+      <heigth>280</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>10</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>255</backgroundcolorgreen>
+      <backgroundcolorblue>204</backgroundcolorblue>
+      <bordercolorred>0</bordercolorred>
+      <bordercolorgreen>0</bordercolorgreen>
+      <bordercolorblue>0</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connections>
+    <connection>
+      <name>CryptoDW.PostgreSQL</name>
+      <server>${PG_HOST}</server>
+      <type>POSTGRESQL</type>
+      <access>Native</access>
+      <database>${PG_DATABASE}</database>
+      <port>${PG_PORT}</port>
+      <username>${PG_USER}</username>
+      <password>${PG_PASSWORD}</password>
+      <servername/>
+      <data_tablespace/>
+      <index_tablespace/>
+      <attributes>
+        <attribute>
+          <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+          <attribute>N</attribute>
+        </attribute>
+        <attribute>
+          <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+          <attribute>N</attribute>
+        </attribute>
+        <attribute>
+          <code>IS_CLUSTERED</code>
+          <attribute>N</attribute>
+        </attribute>
+        <attribute>
+          <code>PORT_NUMBER</code>
+          <attribute>${PG_PORT}</attribute>
+        </attribute>
+        <attribute>
+          <code>PRESERVE_RESERVED_WORD_CASE</code>
+          <attribute>Y</attribute>
+        </attribute>
+        <attribute>
+          <code>QUOTE_ALL_FIELDS</code>
+          <attribute>N</attribute>
+        </attribute>
+        <attribute>
+          <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+          <attribute>Y</attribute>
+        </attribute>
+        <attribute>
+          <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+          <attribute>Y</attribute>
+        </attribute>
+        <attribute>
+          <code>USE_POOLING</code>
+          <attribute>N</attribute>
+        </attribute>
+      </attributes>
+    </connection>
+  </connections>
+  <attributes/>
+</job>

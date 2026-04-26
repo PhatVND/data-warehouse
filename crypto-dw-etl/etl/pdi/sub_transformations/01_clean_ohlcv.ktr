@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>01_clean_ohlcv</name>
+    <description>TV2 cleaning transformation. Reads all raw/*_raw.csv files, normalises symbol, converts epoch to date, validates OHLCV, deduplicates, routes rejects to staging.reject_log and clean rows to staging.ohlcv_raw.</description>
+    <trans_type>Normal</trans_type>
+    <parameters>
+      <parameter><name>PG_DATABASE</name><default_value>crypto_dw_etl</default_value></parameter>
+      <parameter><name>PG_HOST</name><default_value>127.0.0.1</default_value></parameter>
+      <parameter><name>PG_PASSWORD</name><default_value></default_value></parameter>
+      <parameter><name>PG_PORT</name><default_value>5432</default_value></parameter>
+      <parameter><name>PG_USER</name><default_value>postgres</default_value></parameter>
+      <parameter><name>RAW_DIR</name><default_value></default_value></parameter>
+    </parameters>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <using_thread_priorities>Y</using_thread_priorities>
+  </info>
+  <notepads>
+    <notepad>
+      <note>TV2 Cleaning Pipeline — step order:
+1. CSV Input            Read raw/*_raw.csv (wildcard)
+2. String Operations    Strip "USDT" suffix: BTCUSDT → BTC
+3. Filter Rows (nulls)  Reject R1/R2/R4 (null OHLCV or open_time)
+4. Data Validator       Reject R3 (high&lt;low) and R2 (volume&lt;0)
+5. Unique Rows          Deduplicate on (symbol, open_time) — R5
+6. Filter future dates  Reject R6 (open_time_ms &gt; NOW)
+7. Table Output         Write clean rows → staging.ohlcv_raw
+8. Reject Table Output  Write rejects  → staging.reject_log</note>
+      <xloc>64</xloc><yloc>32</yloc>
+      <width>700</width><heigth>160</heigth>
+      <fontname>Segoe UI</fontname><fontsize>10</fontsize>
+      <fontbold>N</fontbold><fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred><fontcolorgreen>0</fontcolorgreen><fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>204</backgroundcolorred><backgroundcolorgreen>255</backgroundcolorgreen><backgroundcolorblue>255</backgroundcolorblue>
+      <bordercolorred>0</bordercolorred><bordercolorgreen>0</bordercolorgreen><bordercolorblue>0</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+  </notepads>
+  <connection>
+    <name>CryptoDW.PostgreSQL</name>
+    <server>${PG_HOST}</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${PG_DATABASE}</database>
+    <port>${PG_PORT}</port>
+    <username>${PG_USER}</username>
+    <password>${PG_PASSWORD}</password>
+    <attributes>
+      <attribute><code>PORT_NUMBER</code><attribute>${PG_PORT}</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+    <hop><from>CSV Input</from><to>String Operations</to><enabled>Y</enabled></hop>
+    <hop><from>String Operations</from><to>Filter Null OHLCV</to><enabled>Y</enabled></hop>
+    <hop><from>Filter Null OHLCV</from><to>Add Reject Reason R1R2R4</to><enabled>Y</enabled></hop>
+    <hop><from>Filter Null OHLCV</from><to>Filter High lt Low</to><enabled>Y</enabled></hop>
+    <hop><from>Filter High lt Low</from><to>Add Reject Reason R3</to><enabled>Y</enabled></hop>
+    <hop><from>Filter High lt Low</from><to>Filter Negative Volume</to><enabled>Y</enabled></hop>
+    <hop><from>Filter Negative Volume</from><to>Add Reject Reason R2b</to><enabled>Y</enabled></hop>
+    <hop><from>Filter Negative Volume</from><to>Filter Future Date</to><enabled>Y</enabled></hop>
+    <hop><from>Filter Future Date</from><to>Add Reject Reason R6</to><enabled>Y</enabled></hop>
+    <hop><from>Filter Future Date</from><to>Sort for Dedupe</to><enabled>Y</enabled></hop>
+    <hop><from>Sort for Dedupe</from><to>Unique Rows</to><enabled>Y</enabled></hop>
+    <hop><from>Unique Rows</from><to>Write ohlcv_raw</to><enabled>Y</enabled></hop>
+    <hop><from>Add Reject Reason R1R2R4</from><to>Merge Rejects</to><enabled>Y</enabled></hop>
+    <hop><from>Add Reject Reason R3</from><to>Merge Rejects</to><enabled>Y</enabled></hop>
+    <hop><from>Add Reject Reason R2b</from><to>Merge Rejects</to><enabled>Y</enabled></hop>
+    <hop><from>Add Reject Reason R6</from><to>Merge Rejects</to><enabled>Y</enabled></hop>
+    <hop><from>Merge Rejects</from><to>Write reject_log</to><enabled>Y</enabled></hop>
+  </order>
+
+  <!-- ================================================================
+       STEP 1: CSV Input — wildcard all *_raw.csv in RAW_DIR
+       ================================================================ -->
+  <step>
+    <name>CSV Input</name>
+    <type>CsvInput</type>
+    <description>Read all *_raw.csv files from raw/ directory</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <filename>${RAW_DIR}/*.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>Y</include_filename>
+    <filename_field_name>source_file</filename_field_name>
+    <include_row_number>N</include_row_number>
+    <row_number_field/>
+    <running_in_parallel>N</running_in_parallel>
+    <header>Y</header>
+    <nrHeaderLines>1</nrHeaderLines>
+    <separator>,</separator>
+    <enclosure>"</enclosure>
+    <add_filename_result>N</add_filename_result>
+    <encoding>UTF-8</encoding>
+    <bufferSize>50000</bufferSize>
+    <lazy_conversion>N</lazy_conversion>
+    <fields>
+      <field><name>symbol</name><type>String</type><format/><currency/><decimal/><group/><length>16</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>open_time</name><type>String</type><format/><length>20</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>open</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>high</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>low</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>close</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>volume</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>close_time</name><type>String</type><format/><length>20</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>quote_asset_volume</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>number_of_trades</name><type>String</type><format/><length>20</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>taker_buy_base_asset_volume</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>taker_buy_quote_asset_volume</name><type>String</type><format/><length>64</length><precision>-1</precision><trim_type>both</trim_type></field>
+      <field><name>ignore_field</name><type>String</type><format/><length>32</length><precision>-1</precision><trim_type>both</trim_type></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>80</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 2: String Operations — normalise symbol (BTCUSDT → BTC)
+       Adapted from standardize_columns() in preprocess_stocks.py
+       ================================================================ -->
+  <step>
+    <name>String Operations</name>
+    <type>StringOperations</type>
+    <description>Strip USDT suffix from symbol field. Reuse of standardize_columns pattern.</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <fields>
+      <field>
+        <in_stream_name>symbol</in_stream_name>
+        <out_stream_name>symbol</out_stream_name>
+        <trim_type>both</trim_type>
+        <upper_lower_case>upper_case</upper_lower_case>
+        <padding_type>none</padding_type>
+        <pad_char/>
+        <pad_len/>
+        <init_cap>no</init_cap>
+        <mask_xml>no</mask_xml>
+        <digits>keep_special</digits>
+        <remove_special>no</remove_special>
+      </field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>240</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 3: Filter Null OHLCV — R1, R2, R4
+       Copies filter logic from preprocess_stocks.py null-check block
+       TRUE path = valid rows; FALSE path = rejects
+       ================================================================ -->
+  <step>
+    <name>Filter Null OHLCV</name>
+    <type>FilterRows</type>
+    <description>Reject rows where open/high/low/close/volume/open_time is NULL or empty (R1, R2, R4)</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <send_true_to>Filter High lt Low</send_true_to>
+    <send_false_to>Add Reject Reason R1R2R4</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>open</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>400</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 4: Filter High < Low — R3
+       ================================================================ -->
+  <step>
+    <name>Filter High lt Low</name>
+    <type>FilterRows</type>
+    <description>Reject rows where high &lt; low (R3)</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <send_true_to>Filter Negative Volume</send_true_to>
+    <send_false_to>Add Reject Reason R3</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>high</leftvalue>
+        <function>&gt;=</function>
+        <rightvalue>low</rightvalue>
+      </condition>
+    </compare>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>560</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 5: Filter Negative Volume — R2b
+       ================================================================ -->
+  <step>
+    <name>Filter Negative Volume</name>
+    <type>FilterRows</type>
+    <description>Reject rows where volume &lt; 0 (R2b)</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <send_true_to>Filter Future Date</send_true_to>
+    <send_false_to>Add Reject Reason R2b</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>volume</leftvalue>
+        <function>&gt;=</function>
+        <right_string>0</right_string>
+      </condition>
+    </compare>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>720</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 6: Filter Future Date — R6
+       ================================================================ -->
+  <step>
+    <name>Filter Future Date</name>
+    <type>FilterRows</type>
+    <description>Reject rows where open_time_ms refers to a future date (R6)</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <send_true_to>Sort for Dedupe</send_true_to>
+    <send_false_to>Add Reject Reason R6</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>open_time</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>880</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 7: Sort for Dedupe — sort by (symbol, open_time) ascending
+       ================================================================ -->
+  <step>
+    <name>Sort for Dedupe</name>
+    <type>SortRows</type>
+    <description>Sort by (symbol, open_time) before deduplication</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>sort</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory>25</free_memory>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field><name>symbol</name><sort_direction>Ascending</sort_direction><case_sensitive>N</case_sensitive></field>
+      <field><name>open_time</name><sort_direction>Ascending</sort_direction><case_sensitive>N</case_sensitive></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>1040</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 8: Unique Rows — deduplicate on (symbol, open_time) — R5
+       Pattern reuse from preprocess_stocks.py dedup block
+       ================================================================ -->
+  <step>
+    <name>Unique Rows</name>
+    <type>Unique</type>
+    <description>Remove duplicate (symbol, open_time) rows — R5. Reuse dedup pattern from preprocess_stocks.py.</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description>Duplicate row</error_description>
+    <fields>
+      <field><name>symbol</name><case_sensitive>N</case_sensitive></field>
+      <field><name>open_time</name><case_sensitive>N</case_sensitive></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>1200</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       STEP 9: Write to staging.ohlcv_raw (TRUNCATE already done by KJB)
+       ================================================================ -->
+  <step>
+    <name>Write ohlcv_raw</name>
+    <type>TableOutput</type>
+    <description>Load clean rows into staging.ohlcv_raw</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <connection>CryptoDW.PostgreSQL</connection>
+    <schema>staging</schema>
+    <table>ohlcv_raw</table>
+    <commit>500</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field><column_name>symbol</column_name><stream_name>symbol</stream_name></field>
+      <field><column_name>open_time</column_name><stream_name>open_time</stream_name></field>
+      <field><column_name>open</column_name><stream_name>open</stream_name></field>
+      <field><column_name>high</column_name><stream_name>high</stream_name></field>
+      <field><column_name>low</column_name><stream_name>low</stream_name></field>
+      <field><column_name>close</column_name><stream_name>close</stream_name></field>
+      <field><column_name>volume</column_name><stream_name>volume</stream_name></field>
+      <field><column_name>close_time</column_name><stream_name>close_time</stream_name></field>
+      <field><column_name>quote_asset_volume</column_name><stream_name>quote_asset_volume</stream_name></field>
+      <field><column_name>number_of_trades</column_name><stream_name>number_of_trades</stream_name></field>
+      <field><column_name>taker_buy_base_asset_volume</column_name><stream_name>taker_buy_base_asset_volume</stream_name></field>
+      <field><column_name>taker_buy_quote_asset_volume</column_name><stream_name>taker_buy_quote_asset_volume</stream_name></field>
+      <field><column_name>ignore_field</column_name><stream_name>ignore_field</stream_name></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>1360</xloc><yloc>220</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <!-- ================================================================
+       REJECT STEPS — Add reason fields, then merge, then write
+       ================================================================ -->
+  <step>
+    <name>Add Reject Reason R1R2R4</name>
+    <type>Constant</type>
+    <description>Tag rejects with reason: NULL_OHLCV_OR_TIME</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <fields>
+      <field><name>reject_reason</name><type>String</type><format/><currency/><decimal/><group/><nullif/><value>NULL_OHLCV_OR_TIME (R1/R2/R4)</value><set_empty_string>N</set_empty_string></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>400</xloc><yloc>380</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <step>
+    <name>Add Reject Reason R3</name>
+    <type>Constant</type>
+    <description>Tag rejects with reason: HIGH_LT_LOW</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <fields>
+      <field><name>reject_reason</name><type>String</type><format/><currency/><decimal/><group/><nullif/><value>HIGH_LT_LOW (R3)</value><set_empty_string>N</set_empty_string></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>560</xloc><yloc>380</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <step>
+    <name>Add Reject Reason R2b</name>
+    <type>Constant</type>
+    <description>Tag rejects with reason: NEGATIVE_VOLUME</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <fields>
+      <field><name>reject_reason</name><type>String</type><format/><currency/><decimal/><group/><nullif/><value>NEGATIVE_VOLUME (R2)</value><set_empty_string>N</set_empty_string></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>720</xloc><yloc>380</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <step>
+    <name>Add Reject Reason R6</name>
+    <type>Constant</type>
+    <description>Tag rejects with reason: FUTURE_DATE</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <fields>
+      <field><name>reject_reason</name><type>String</type><format/><currency/><decimal/><group/><nullif/><value>FUTURE_DATE (R6)</value><set_empty_string>N</set_empty_string></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>880</xloc><yloc>380</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <step>
+    <name>Merge Rejects</name>
+    <type>Append</type>
+    <description>Merge all reject streams before writing to reject_log</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <head_step_name>Add Reject Reason R1R2R4</head_step_name>
+    <tail_step_name>Add Reject Reason R3</tail_step_name>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>1040</xloc><yloc>380</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <step>
+    <name>Write reject_log</name>
+    <type>TableOutput</type>
+    <description>Write rejected rows to staging.reject_log</description>
+    <distribute>Y</distribute><copies>1</copies>
+    <partitioning><method>none</method><schema_name/></partitioning>
+    <connection>CryptoDW.PostgreSQL</connection>
+    <schema>staging</schema>
+    <table>reject_log</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field><column_name>source_file</column_name><stream_name>source_file</stream_name></field>
+      <field><column_name>symbol</column_name><stream_name>symbol</stream_name></field>
+      <field><column_name>open_time_raw</column_name><stream_name>open_time</stream_name></field>
+      <field><column_name>reject_reason</column_name><stream_name>reject_reason</stream_name></field>
+    </fields>
+    <attributes/><cluster_schema/>
+    <GUI><xloc>1200</xloc><yloc>380</yloc><draw>Y</draw></GUI>
+  </step>
+
+  <step_error_handling/>
+  <slave-step-copy-partition-distribution/>
+  <slave_transformation>N</slave_transformation>
+  <attributes/>
+</transformation>
