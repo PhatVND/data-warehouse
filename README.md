@@ -110,4 +110,4 @@ xelatex main.tex     # chạy 2 lần để fix cross-references
 Dự án học thuật — chỉ dùng cho mục đích giáo dục.
 
 ---
-*Generated as part of CO4031 Final Project · HCMUT · Semester 251 (2025–2026)*
+*Generated as part of CO4031 Final Project · HCMUT · Semester 252(2025–2026)*
