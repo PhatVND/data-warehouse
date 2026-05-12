@@ -1,0 +1,4 @@
+﻿"date_id","full_date","coin_id","symbol","full_name","category_id","category_name","risk_level","open","high","low","close","volume_base","volume_usd","return_pct","log_return","volatility","average_price","z_score_close","is_anomaly","volume_rank","market_dominance_pct","regime_label"
+"20240427","2024-04-27","1","BTC","Bitcoin","1","L1","Low","63770","63923.41","62391.24","63461.98","20933.0605","1328453468.06","-0.483","-0.004842","1532.17","63157.325",,"False","1","38.208","Sideways"
+"20240428","2024-04-28","1","BTC","Bitcoin","1","L1","Low","63461.98","64370","62781","63118.62","16949.2","1069810117.26","-0.541","-0.005425","1589","63575.5","-0.7071","False","1","37.019","Sideways"
+"20240429","2024-04-29","1","BTC","Bitcoin","1","L1","Low","63118.62","64228.35","61765.53","63866","28150.2295","1797842555.33","1.1841","0.011771","2462.82","62996.94","1.0259","False","1","40.461","Sideways"

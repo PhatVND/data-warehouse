@@ -1,0 +1,83 @@
+\section*{Phụ lục}
+\addcontentsline{toc}{section}{Phụ lục}
+
+\subsection*{Phụ lục A: Cấu trúc thư mục dự án}
+Dưới đây là cấu trúc tổ chức mã nguồn của hệ thống CryptoDW-ETL:
+\begin{itemize}
+    \item \texttt{ai/}: Chứa các Jupyter Notebook phân tích (Regression, Clustering, Anomaly).
+    \item \texttt{scripts/}: Các script Python thu thập dữ liệu từ Binance API.
+    \item \texttt{pdi/}: Các tệp Job (.kjb) và Transformation (.ktr) của Pentaho.
+    \item \texttt{sql/}: Chứa các kịch bản DDL và DML cho PostgreSQL (Raw, Staging, Gold layers).
+    \item \texttt{streamlit\_crypto.py}: Mã nguồn ứng dụng Dashboard tương tác.
+    \item \texttt{run\_pipeline.bat}: Tệp điều khiển chạy toàn bộ luồng ETL.
+\end{itemize}
+
+\subsection*{Phụ lục B: Đặc tả SQL DDL (Gold Layer)}
+Đoạn mã SQL định nghĩa bảng sự kiện chính trong Kho dữ liệu:
+\begin{verbatim}
+CREATE TABLE gold.fact_market_daily (
+    date_id INT REFERENCES gold.dim_date(date_id),
+    coin_id INT REFERENCES gold.dim_coin(coin_id),
+    open NUMERIC(18,8),
+    high NUMERIC(18,8),
+    low NUMERIC(18,8),
+    close NUMERIC(18,8),
+    volume_usd NUMERIC(20,2),
+    return_pct NUMERIC(10,4),
+    z_score_close NUMERIC(10,4),
+    is_anomaly BOOLEAN,
+    regime_label VARCHAR(16),
+    market_dominance_pct NUMERIC(6,3),
+    PRIMARY KEY (date_id, coin_id)
+);
+\end{verbatim}
+
+\subsection*{Phụ lục C: Báo cáo tái sử dụng mã nguồn}
+
+Dự án CryptoDW-ETL được phát triển trên nền tảng dự án phân tích cổ phiếu hàng không (project tiền nhiệm cùng nhóm), đạt tỉ lệ tái sử dụng mã nguồn ước tính \textbf{$\sim$72\%}, vượt yêu cầu tối thiểu (70\%) của môn học. Bảng \ref{tab:reuse} liệt kê chi tiết các module được tái sử dụng và mức độ điều chỉnh.
+
+\begin{table}[H]
+\centering
+\caption{Báo cáo tái sử dụng mã nguồn -- so sánh project tiền nhiệm và CryptoDW-ETL}
+\label{tab:reuse}
+\small
+\begin{tabular}{@{}llrl@{}}
+\toprule
+\textbf{Module / Tệp gốc} & \textbf{Tệp mới} & \textbf{\% reuse} & \textbf{Thay đổi chính} \\
+\midrule
+\texttt{preprocess\_stocks.py} (parsers)
+    & \texttt{scripts/parsers.py}             & 100\% & Giữ nguyên hoàn toàn \\
+\texttt{preprocess\_stocks.py} L165--176 (công thức)
+    & Pentaho Calculator + SQL                & 100\% & Cùng công thức, đổi engine \\
+\texttt{datamining\_analysis.py} -- Linear Regression
+    & \texttt{ai/01\_regression.ipynb}        &  80\% & Đổi target, thêm lag features \\
+\texttt{datamining\_analysis.py} -- K-Means
+    & \texttt{ai/02\_clustering.ipynb}        &  70\% & Thêm validation Elbow/Silhouette \\
+\texttt{datamining\_analysis.py} -- Z-Score
+    & \texttt{ai/03\_anomaly.ipynb}           &  80\% & Đổi static $\to$ rolling 30d \\
+\texttt{olap\_analysis.py} (pivot)
+    & \texttt{sql/04\_olap\_views.sql}        &  50\% & Đổi từ pandas $\to$ SQL views \\
+\texttt{streamlit.py} (Stocks)
+    & \texttt{streamlit\_crypto.py}           &  70\% & Đổi nguồn CSV $\to$ PostgreSQL \\
+\texttt{Stock\_Analysis\_Dashboard.pbix}
+    & \texttt{bi/Crypto\_Dashboard.pbix}      &  60\% & Đổi schema, giữ measures DAX \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Cách tính tỉ lệ:} Đo bằng số dòng code thực sự được copy hoặc adapt từ project gốc, chia cho tổng số dòng code trong project mới (không tính file dữ liệu, comment, docstring). Trung bình có trọng số theo độ phức tạp của module:
+\[
+\text{Reuse}_{\text{tổng}} = \frac{\sum_i (\text{LoC}_i \times \%\text{reuse}_i)}{\sum_i \text{LoC}_i} \approx 72\%
+\]
+
+\textbf{Các thành phần được phát triển mới (28\%):}
+\begin{itemize}
+    \item \texttt{scripts/1\_fetch\_binance.py} -- Module ingestion cho Binance API.
+    \item \texttt{seed/dim\_coin.csv}, \texttt{seed/dim\_category.csv} -- Master data riêng cho crypto.
+    \item \texttt{etl/pdi/*.kjb} -- Pentaho jobs cho pipeline.
+    \item \texttt{run\_pipeline.bat / .sh} -- Orchestration scripts.
+    \item \texttt{tools/} -- Utility scripts (export PBI, generate images).
+    \item Phần lớn nội dung báo cáo LaTeX và 4 dashboard layouts.
+\end{itemize}
+
+\textbf{Thư viện ngoài} (third-party): \texttt{pandas}, \texttt{numpy} \cite{mckinney2017}, \texttt{scikit-learn} \cite{scikit2023}, \texttt{plotly}, \texttt{streamlit}, \texttt{requests}, \texttt{psycopg2}, \texttt{sqlalchemy}.

@@ -1,0 +1,23 @@
+\newpage
+
+
+\renewcommand{\baselinestretch}{1} % Set the line spacing for TOC to 1 (single spacing)
+\setlength{\parskip}{0pt} % Set paragraph spacing for TOC to 0pt (no extra spacing)
+\tableofcontents
+\newpage
+
+
+% set up after TOC
+\setlength{\parskip}{5pt}
+
+
+
+
+
+%%%%%%% START PAGE COUNTING FOR MAIN PART %%%%%%%
+\pagenumbering{arabic}  % Switch to Arabic numbering
+\setcounter{page}{1}    % Start from page 1 for main content
+
+% Redefine the footer for Part 2
+\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}} % Page X of total Y for Part 2
+

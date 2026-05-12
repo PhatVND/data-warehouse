@@ -1,0 +1,34 @@
+﻿{
+    "generated_at":  "2026-05-06 18:40:40",
+    "execution_note":  "Pentaho Kitchen and psql were not available in PATH on this machine, so this script executes the same TV2 cleaning rules against raw CSV files and exports evidence artifacts.",
+    "input":  {
+                  "raw_files":  10,
+                  "raw_rows":  7300,
+                  "raw_dir":  "D:\\DataWarehouse\\data-warehouse\\Crypto-DW-ETL\\crypto-dw-etl\\raw"
+              },
+    "output":  {
+                   "clean_rows":  7300,
+                   "reject_rows_logged":  0,
+                   "cleaned_csv":  "D:\\DataWarehouse\\data-warehouse\\Crypto-DW-ETL\\crypto-dw-etl\\slide_assets\\tv2_run\\cleaned_ohlcv_raw.csv",
+                   "reject_log_csv":  "D:\\DataWarehouse\\data-warehouse\\Crypto-DW-ETL\\crypto-dw-etl\\slide_assets\\tv2_run\\reject_log.csv"
+               },
+    "verification_after_clean":  {
+                                     "distinct_symbols":  [
+                                                              "ADA",
+                                                              "BNB",
+                                                              "BTC",
+                                                              "DOGE",
+                                                              "DOT",
+                                                              "ETH",
+                                                              "MATIC",
+                                                              "SOL",
+                                                              "TRX",
+                                                              "XRP"
+                                                          ],
+                                     "symbol_count":  10,
+                                     "high_less_than_low_rows":  0,
+                                     "negative_volume_rows":  0,
+                                     "symbols_still_with_usdt_suffix":  0,
+                                     "duplicate_symbol_open_time_groups":  0
+                                 }
+}

@@ -1,0 +1,69 @@
+\section{Phân tích, thảo luận và hướng phát triển}
+\subsection{Tổng quan kết quả chính}
+Trong giai đoạn phân tích từ 27/04/2024 đến 26/04/2026, dự án CryptoDW-ETL đã đạt được các kết quả quan trọng:
+\begin{itemize}
+    \item \textbf{Pipeline ETL hoàn chỉnh:} Thu thập, làm sạch và nạp $\sim 7\,300$ dòng dữ liệu vào Star Schema chuẩn -- toàn bộ tự động hoá qua \texttt{run\_pipeline.bat}.
+    \item \textbf{Hiệu suất và Lợi nhuận:} Thị trường Crypto thể hiện sự phân hoá cực mạnh. Các đồng nền tảng (BTC, BNB, TRX) có lợi suất ổn định, trong khi nhóm Speculative (ADA, DOGE, DOT, MATIC) ghi nhận drawdown $-76\%$ đến $-89\%$.
+    \item \textbf{Anomaly Detection:} Phát hiện 874 phiên bất thường ($\sim 12\%$ tổng số phiên), trong đó các phiên cực đoan đều có nguyên nhân kinh tế / chính trị rõ ràng (Trump win, ETF approval, Fed policy) -- chứng minh hệ thống không phát hiện noise mà phát hiện sự kiện thực.
+    \item \textbf{K-Means Clustering:} Phân loại 10 coin thành 3 nhóm Leaders / Mid-cap / Speculative, validated bằng Silhouette score -- kết quả nhất quán với phân loại risk-level định tính ban đầu.
+    \item \textbf{Hai dashboard song song:} Power BI cho lãnh đạo, Streamlit cho phân tích viên kỹ thuật.
+\end{itemize}
+
+\subsection{Ý nghĩa và Ứng dụng}
+Dự án đã biến dữ liệu thô từ sàn Binance thành một hệ thống hỗ trợ quyết định có cấu trúc \cite{kimball2013}:
+\begin{itemize}
+    \item \textbf{Đối với nhà đầu tư:} Dashboard cung cấp cái nhìn tổng quan về rủi ro của từng danh mục coin, hỗ trợ phân bổ vốn tối ưu theo khẩu vị (Modern Portfolio Theory \cite{bodie2014}).
+    \item \textbf{Đối với nhà quản trị hệ thống:} Quy trình ETL tự động hoá hoàn toàn giúp giảm thiểu sai sót con người và đảm bảo tính kịp thời của thông tin (Data Quality Dimensions \cite{inmon2005}).
+    \item \textbf{Đối với nghiên cứu:} Kho dữ liệu mở (CSV mode) cho phép tái lập kết quả mà không cần PostgreSQL -- minh bạch và phục vụ học thuật.
+\end{itemize}
+
+\subsection{Hạn chế nghiên cứu}
+
+Mặc dù đạt được mục tiêu MVP, nhóm thẳng thắn nhìn nhận các hạn chế nghiêm trọng cần ghi nhận:
+
+\paragraph{1. Hạn chế về dữ liệu}
+\begin{itemize}
+    \item \textbf{Dữ liệu On-chain:} Hệ thống chỉ sử dụng dữ liệu từ sàn tập trung (CEX). Việc thiếu hụt dữ liệu On-chain (dòng tiền vào/ra ví sàn, hoạt động whales, gas fee) làm giới hạn khả năng dự báo dài hạn.
+    \item \textbf{Phân tích tâm lý (Sentiment):} Dự án chưa tích hợp dữ liệu từ mạng xã hội (X/Twitter, Reddit), vốn là yếu tố quan trọng tác động đến giá Crypto -- đặc biệt với meme coin như DOGE.
+    \item \textbf{MATIC bị delist:} Việc Polygon rebrand sang POL khiến chuỗi dữ liệu MATIC kết thúc 09/2024, không trùng cửa sổ phân tích chính. Kết quả K-Means cho MATIC vì vậy mang tính tham khảo.
+\end{itemize}
+
+\paragraph{2. Hạn chế về mô hình}
+\begin{itemize}
+    \item \textbf{Linear Regression -- $R^2 = 0.96$ là dấu hiệu data leakage tiềm năng.} Mô hình chủ yếu dự báo $Close_{T+1} \approx Close_T$ (giá hôm nay là chỉ báo dominant cho ngày mai). $R^2$ cao trên test set không đồng nghĩa giá trị dự báo thực tế cao -- một mô hình ``persistence baseline'' (luôn dự báo $Close_{T+1} = Close_T$) cũng có $R^2$ tương đương. Để đánh giá đúng cần đo \emph{directional accuracy} (\% đoán đúng chiều) và so với baseline naïve.
+    \item \textbf{K-Means trên $n = 10$ điểm là thống kê yếu.} Với chỉ 10 đối tượng, độ tin cậy của clustering rất hạn chế -- đặc biệt khi dữ liệu thay đổi 1 coin có thể làm thay đổi cluster boundary. Silhouette $0.28$ ở $k = 3$ chỉ ở mức ``moderate'' theo thang Kaufman \& Rousseeuw, không ``strong''.
+    \item \textbf{Z-Score Anomaly giả định stationary.} Chuỗi giá crypto rõ ràng non-stationary -- mean và std thay đổi theo thời gian. Z-Score rolling 30 ngày là rough heuristic, không có nền tảng lý thuyết chặt chẽ. Phương pháp tốt hơn: GARCH \cite{hyndman2021} hoặc Isolation Forest.
+\end{itemize}
+
+\paragraph{3. Hạn chế về phạm vi}
+\begin{itemize}
+    \item \textbf{Quy mô 10 coin × 730 ngày} là phạm vi MVP, chưa đủ để rút ra kết luận về toàn thị trường ($>10{,}000$ coin). Việc mở rộng cần xem xét kiến trúc phân tán (Spark/Dask).
+    \item \textbf{Không có kiểm thử out-of-sample dài hạn.} Mọi backtest đều thực hiện trên cùng cửa sổ dữ liệu 2 năm -- chưa đảm bảo mô hình bền với regime change (ví dụ: chuyển từ bull market sang bear market kéo dài).
+\end{itemize}
+
+\subsection{Hướng phát triển và đề xuất cải tiến}
+\begin{itemize}
+    \item \textbf{Nâng cấp mô hình ML:}
+    \begin{itemize}
+        \item Triển khai \emph{ARIMA / GARCH} cho time-series chuyên ngành \cite{hyndman2021}.
+        \item Thử \emph{LSTM, Temporal Fusion Transformer} cho dài hạn (cần dữ liệu lớn hơn).
+        \item Đo \emph{directional accuracy} thay vì chỉ $R^2$.
+    \end{itemize}
+    \item \textbf{Mở rộng nguồn dữ liệu:}
+    \begin{itemize}
+        \item Tích hợp dữ liệu On-chain qua Glassnode / Dune Analytics.
+        \item Thu thập sentiment qua Twitter API hoặc CryptoCompare News.
+        \item Thêm dữ liệu vĩ mô (lãi suất Fed, DXY, gold price) làm exogenous features.
+    \end{itemize}
+    \item \textbf{Hệ thống cảnh báo tự động:}
+    \begin{itemize}
+        \item Tích hợp Telegram/Discord webhook khi $|z| > 2$ kèm Volume Spike.
+        \item Lên lịch refresh pipeline hàng giờ (cron job) thay vì chạy thủ công.
+    \end{itemize}
+    \item \textbf{Kiến trúc mở rộng:}
+    \begin{itemize}
+        \item Chuyển từ PostgreSQL local sang DuckDB / ClickHouse cho hiệu suất analytical query \cite{silberschatz2019}.
+        \item Triển khai dbt (data build tool) cho transformation tier để dễ test và versioning.
+        \item Đóng gói dashboard thành Docker để deploy lên cloud.
+    \end{itemize}
+\end{itemize}

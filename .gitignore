@@ -1,0 +1,70 @@
+# =============================================================================
+# CryptoDW-ETL — Top-level .gitignore
+# (project-specific .gitignore lives in crypto-dw-etl/.gitignore as well)
+# =============================================================================
+
+# ===== Python =====
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ===== Secrets =====
+.env
+.env.local
+.env.*.local
+**/secrets.toml
+
+# ===== LaTeX build artifacts =====
+*.aux
+*.toc
+*.out
+*.log
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.idx
+*.ilg
+*.ind
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.dvi
+*.ps
+*.gz
+# Keep main.pdf in the report folder (it IS our deliverable)
+!_Data_Warehouse/_Data_Warehouse__Báo_cáo/main.pdf
+
+# ===== Backup / temp =====
+*.bak
+*.tmp
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.iml
+
+# ===== Local pipeline runtime =====
+crypto-dw-etl/logs/*
+!crypto-dw-etl/logs/.gitkeep
+crypto-dw-etl/.local_pgdata/
+crypto-dw-etl/.local_pglog/
+crypto-dw-etl/.kettle/
+
+# ===== Local debug artefacts (not reproducible inputs) =====
+crypto-dw-etl/tools/_pdf_pages/
+crypto-dw-etl/tools/__pycache__/
+
+# ===== Old PDF that will be regenerated =====
+_Data_Warehouse__Báo_cáo.pdf

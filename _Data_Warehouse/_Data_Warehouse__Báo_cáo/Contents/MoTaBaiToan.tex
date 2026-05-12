@@ -1,0 +1,28 @@
+\section{Giới thiệu}
+\subsection{Định nghĩa bài toán}
+$\indent$Thị trường tiền mã hoá (cryptocurrency) đã trở thành một lớp tài sản mới có quy mô vốn hoá hàng nghìn tỷ USD, chịu ảnh hưởng trực tiếp từ chính sách tiền tệ, tin tức công nghệ và tâm lý nhà đầu tư toàn cầu. So với cổ phiếu truyền thống, dữ liệu crypto có đặc thù riêng: giao dịch liên tục 24/7, biến động giá rất mạnh (volatility cao gấp 5–10 lần thị trường chứng khoán), tập trung chủ yếu trên các sàn lớn như Binance, Coinbase, OKX, và phân hoá rõ rệt giữa các nhóm tài sản (Layer-1, Layer-2, Stablecoin, Meme, Payment). Bối cảnh đó khiến nhu cầu xây dựng một kho dữ liệu (Data Warehouse) chuyên biệt để hỗ trợ ra quyết định trở nên cấp thiết.
+
+$\indent$Báo cáo sử dụng dữ liệu lịch sử giá nến ngày (daily klines) của \textbf{10 đồng coin có vốn hoá lớn nhất theo Binance} gồm BTC, ETH, BNB, SOL, XRP, ADA, DOGE, TRX, DOT, MATIC. Dữ liệu được trích xuất trực tiếp từ Binance REST API endpoint \texttt{/api/v3/klines} \cite{binance2024}, cung cấp các trường tiêu chuẩn: thời điểm mở/đóng phiên, OHLC (Open/High/Low/Close), khối lượng giao dịch (Volume) và khối lượng quy đổi USD. Mẫu dữ liệu kéo dài 730 ngày gần nhất cho mỗi coin (riêng MATIC có cửa sổ 2022--2024 vì Binance đã delist sau khi Polygon rebrand sang POL vào 09/2024), tổng cộng \textbf{7\,300 dòng} trong Gold layer.
+
+Mục tiêu của phân tích là (i) xây dựng pipeline ETL hoàn chỉnh đưa dữ liệu thô từ Binance vào Kho dữ liệu PostgreSQL chuẩn Star Schema, (ii) đo lường và so sánh hiệu suất, độ biến động, mức sụt giảm tối đa giữa các nhóm coin, (iii) áp dụng các kỹ thuật khai phá dữ liệu (hồi quy, phân cụm, phát hiện bất thường) để rút ra các tín hiệu định lượng, và (iv) trực quan hoá kết quả qua dashboard Power BI và Streamlit để hỗ trợ người dùng cuối ra quyết định. Các chỉ số trọng tâm bao gồm lợi suất (return\_pct), log return, độ biến động nội ngày, Z-Score rolling 30 ngày, market dominance và regime label (Bull/Bear/Sideways).
+
+\subsection{Phương pháp tiếp cận}
+
+Mục tiêu phân tích:
+\begin{itemize}
+  \item \textbf{Ingestion 24/7:} Thu thập dữ liệu giá nến ngày của 10 đồng coin từ Binance REST API, đảm bảo idempotent (có thể chạy lại) và chịu lỗi mạng.
+  \item \textbf{Chuẩn hoá và tải vào Staging:} Parse timestamp ms, ép kiểu \texttt{NUMERIC(18,8)} cho giá và \texttt{NUMERIC(20,4)} cho khối lượng, kiểm tra ràng buộc OHLC (\texttt{low $\leq$ open, close, high}).
+  \item \textbf{Tính toán metrics ở tầng Transform:} Bao gồm \texttt{return\_pct}, \texttt{log\_return}, \texttt{volatility} (high$-$low), \texttt{average\_price}, \texttt{volume\_usd}, \texttt{z\_score\_close} (cửa sổ trượt 30 ngày), \texttt{is\_anomaly} (cờ $|z|>2$), \texttt{volume\_rank} và \texttt{market\_dominance\_pct}.
+  \item \textbf{Mô hình hoá theo Star Schema} \cite{kimball2013}\textbf{:} Bảng sự kiện \texttt{fact\_market\_daily} kết nối với 3 bảng chiều \texttt{dim\_date}, \texttt{dim\_coin}, \texttt{dim\_category} (4 nhóm: L1, L2, Meme, Payment kèm risk\_level).
+  \item \textbf{Phân tích đa chiều OLAP} \cite{chaudhuri1997}\textbf{:} Xây dựng 3 view phân tích (lợi suất tuần theo category, bảng xếp hạng volume, danh sách phiên anomaly) phục vụ slice \& dice và drill-down.
+  \item \textbf{Khai phá dữ liệu (Data Mining):}
+  \begin{itemize}
+    \item \emph{Linear Regression:} Dự báo giá đóng cửa ngày T+1 với các feature OHLCV + lag.
+    \item \emph{K-Means Clustering (k=3):} Phân nhóm 10 coin theo hành vi rủi ro--lợi suất.
+    \item \emph{Anomaly Detection:} Phát hiện các phiên có biến động cực đoan dựa trên Z-Score rolling 30 ngày.
+  \end{itemize}
+  \item \textbf{Trực quan hoá đa nền tảng:} Dashboard Power BI cho lãnh đạo (chiến lược) và web app Streamlit (Plotly) cho người dùng cuối với 5 tab tương tác.
+  \item \textbf{Quản trị dữ liệu \& Orchestration:} Toàn bộ pipeline được điều phối bằng \texttt{run\_pipeline.bat}/\texttt{.sh} (Python $\rightarrow$ psql $\rightarrow$ SQL $\rightarrow$ Views), có log tự động theo ngày và script \texttt{run\_pipeline\_rollback.bat} để rollback khi cần.
+\end{itemize}
+
+Hai phần trên định vị rõ: (i) nguồn dữ liệu Binance cùng đặc thù 24/7 và phương pháp chuẩn hoá để sẵn sàng cho Kho dữ liệu; (ii) các mục tiêu phân tích tập trung vào khai thác thông tin chi tiết, áp dụng các kỹ thuật học máy cơ bản và trực quan hoá tương tác để hỗ trợ ra quyết định trên thị trường tiền mã hoá đầy biến động.

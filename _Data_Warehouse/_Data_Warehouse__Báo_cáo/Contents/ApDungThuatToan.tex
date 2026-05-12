@@ -1,0 +1,49 @@
+\section{Phương pháp đề xuất}
+
+\subsection{Mục đích}
+\hspace*{0.8cm}
+Hệ thống được thiết kế để \textbf{phân tích và khám phá dữ liệu thị trường Crypto} dựa trên các công cụ hiện đại và quy trình khoa học.  
+Chương trình sử dụng ba kỹ thuật chính trong kho dữ liệu:
+\begin{itemize}
+    \item \textbf{OLAP (Online Analytical Processing)} để tổng hợp, so sánh và quan sát xu hướng theo nhiều chiều (Thời gian, Danh mục coin, Chế độ thị trường).
+    \item \textbf{Data Mining} để khai thác mẫu ẩn trong dữ liệu như dự đoán giá ngắn hạn, phân cụm hành vi rủi ro, và phát hiện các cú sốc thị trường.
+    \item \textbf{Visualization} trên đa nền tảng (Power BI \& Streamlit) để trực quan hóa dữ liệu, giúp người dùng nhận diện nhanh các điểm bất thường và cơ hội đầu tư.
+\end{itemize}
+
+\subsection{Các bước áp dụng chính}
+\begin{enumerate}[label=\alph*)]
+
+    \item \textbf{Chuẩn bị dữ liệu đầu vào:}  
+    Dữ liệu được trích xuất từ PostgreSQL Gold Layer thông qua các View phân tích. Các trường dữ liệu bao gồm OHLCV kết hợp với các chỉ số tính toán sẵn như \texttt{Return\_pct}, \texttt{Z-Score} và các nhãn \texttt{Regime}.
+
+    \item \textbf{Phân tích OLAP:}  
+    Phân tích đa chiều giúp tổng hợp dữ liệu theo từng danh mục:
+    \begin{itemize}
+        \item \textbf{Slice \& Dice:} Phân tích hiệu suất của từng Category (Layer 1, Meme) theo các khung thời gian khác nhau.
+        \item \textbf{Drill-down:} Khoan sâu từ dữ liệu tổng hợp năm xuống biến động của từng phiên giao dịch cụ thể để tìm hiểu nguyên nhân bất thường.
+        \item \textbf{Pivot Analysis:} Bảng xếp hạng thanh khoản (Volume Leaderboard) và tỉ trọng thị trường (Dominance).
+    \end{itemize}
+
+    \item \textbf{Khai phá dữ liệu (Data Mining):}  
+    Nhóm triển khai 3 kỹ thuật chính thông qua các Jupyter Notebook:
+    \begin{itemize}
+        \item \textbf{Hồi quy tuyến tính (Linear Regression):} Dự báo giá $T+1$ của các đồng coin vốn hoá lớn.
+        \item \textbf{Gom cụm (Clustering) bằng K-Means:} Phân loại coin thành các nhóm Leaders, Altcoins và Speculative dựa trên độ biến động và lợi nhuận.
+        \item \textbf{Phát hiện bất thường (Anomaly Detection):} Sử dụng Z-Score rolling 30 ngày để gắn cờ các phiên giao dịch cực đoan.
+    \end{itemize}
+
+    \item \textbf{Trực quan hóa dữ liệu (Visualization):}  
+    Hệ thống cung cấp giao diện trực quan sinh động:
+    \begin{itemize}
+        \item \textbf{Streamlit Dashboard:} Cung cấp các biểu đồ động (Plotly) cho phép tương tác trực tiếp với Database.
+        \item \textbf{Power BI Reports:} Báo cáo quản trị chuyên sâu với các biểu đồ Matrix, Treemap và Heatmap.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Kết quả kỳ vọng}
+\begin{itemize}
+    \item Hệ thống Pipeline ETL tự động đảm bảo dữ liệu luôn được cập nhật từ Binance.
+    \item Kho dữ liệu chuẩn Star Schema tối ưu cho việc truy xuất thông tin nhanh chóng.
+    \item Các mô hình khai phá dữ liệu cung cấp các chỉ báo định lượng có độ tin cậy cao ($R^2 > 0.98$ cho mô hình hồi quy).
+    \item Dashboard tương tác giúp người dùng không cần kiến thức kỹ thuật vẫn có thể theo dõi thị trường hiệu quả.
+\end{itemize}

@@ -1,0 +1,171 @@
+﻿{
+    "generated_at":  "2026-05-06 19:13:41",
+    "execution_note":  "PostgreSQL/Pentaho runtime is not required for this evidence. The script mirrors TV3 SQL formulas over raw CSV + seed dimensions.",
+    "row_counts":  {
+                       "raw_rows":  7300,
+                       "staging_fact_prep_rows":  7300,
+                       "gold_fact_market_daily_rows":  7300,
+                       "rows_match":  true
+                   },
+    "star_schema":  {
+                        "dim_coin_rows":  10,
+                        "dim_category_rows":  4,
+                        "fact_grain":  "1 row per coin per day",
+                        "fact_pk":  "(date_id, coin_id)"
+                    },
+    "verification":  {
+                         "days_with_more_than_10_coins":  0,
+                         "dominance_days_total":  1323,
+                         "dominance_days_within_99_5_to_100_5":  1323,
+                         "top_anomaly_rows":  874,
+                         "weekly_return_by_category_rows":  423,
+                         "volume_leaderboard_rows":  7300
+                     },
+    "regime_counts":  [
+                          {
+                              "regime":  "Bear",
+                              "rows":  1160
+                          },
+                          {
+                              "regime":  "Bull",
+                              "rows":  1115
+                          },
+                          {
+                              "regime":  "Sideways",
+                              "rows":  5025
+                          }
+                      ],
+    "category_counts":  [
+                            {
+                                "category":  "L1",
+                                "rows":  5110
+                            },
+                            {
+                                "category":  "L2",
+                                "rows":  730
+                            },
+                            {
+                                "category":  "Meme",
+                                "rows":  730
+                            },
+                            {
+                                "category":  "Payment",
+                                "rows":  730
+                            }
+                        ],
+    "volume_2025_billion_usd":  [
+                                    {
+                                        "symbol":  "BTC",
+                                        "volume_usd_billion":  768.12
+                                    },
+                                    {
+                                        "symbol":  "ETH",
+                                        "volume_usd_billion":  634.66
+                                    },
+                                    {
+                                        "symbol":  "SOL",
+                                        "volume_usd_billion":  258.56
+                                    },
+                                    {
+                                        "symbol":  "XRP",
+                                        "volume_usd_billion":  185.31
+                                    },
+                                    {
+                                        "symbol":  "DOGE",
+                                        "volume_usd_billion":  106.02
+                                    },
+                                    {
+                                        "symbol":  "BNB",
+                                        "volume_usd_billion":  92.22
+                                    },
+                                    {
+                                        "symbol":  "ADA",
+                                        "volume_usd_billion":  49.28
+                                    },
+                                    {
+                                        "symbol":  "TRX",
+                                        "volume_usd_billion":  45.29
+                                    },
+                                    {
+                                        "symbol":  "DOT",
+                                        "volume_usd_billion":  11.01
+                                    }
+                                ],
+    "formula_sample_btc":  [
+                               {
+                                   "date_id":  20240427,
+                                   "full_date":  "2024-04-27",
+                                   "coin_id":  1,
+                                   "symbol":  "BTC",
+                                   "full_name":  "Bitcoin",
+                                   "category_id":  1,
+                                   "category_name":  "L1",
+                                   "risk_level":  "Low",
+                                   "open":  63770,
+                                   "high":  63923.41,
+                                   "low":  62391.24,
+                                   "close":  63461.98,
+                                   "volume_base":  20933.0605,
+                                   "volume_usd":  1328453468.06,
+                                   "return_pct":  -0.483,
+                                   "log_return":  -0.004842,
+                                   "volatility":  1532.17,
+                                   "average_price":  63157.325,
+                                   "z_score_close":  null,
+                                   "is_anomaly":  false,
+                                   "volume_rank":  1,
+                                   "market_dominance_pct":  38.208,
+                                   "regime_label":  "Sideways"
+                               },
+                               {
+                                   "date_id":  20240428,
+                                   "full_date":  "2024-04-28",
+                                   "coin_id":  1,
+                                   "symbol":  "BTC",
+                                   "full_name":  "Bitcoin",
+                                   "category_id":  1,
+                                   "category_name":  "L1",
+                                   "risk_level":  "Low",
+                                   "open":  63461.98,
+                                   "high":  64370,
+                                   "low":  62781,
+                                   "close":  63118.62,
+                                   "volume_base":  16949.2,
+                                   "volume_usd":  1069810117.26,
+                                   "return_pct":  -0.541,
+                                   "log_return":  -0.005425,
+                                   "volatility":  1589,
+                                   "average_price":  63575.5,
+                                   "z_score_close":  -0.7071,
+                                   "is_anomaly":  false,
+                                   "volume_rank":  1,
+                                   "market_dominance_pct":  37.019,
+                                   "regime_label":  "Sideways"
+                               },
+                               {
+                                   "date_id":  20240429,
+                                   "full_date":  "2024-04-29",
+                                   "coin_id":  1,
+                                   "symbol":  "BTC",
+                                   "full_name":  "Bitcoin",
+                                   "category_id":  1,
+                                   "category_name":  "L1",
+                                   "risk_level":  "Low",
+                                   "open":  63118.62,
+                                   "high":  64228.35,
+                                   "low":  61765.53,
+                                   "close":  63866,
+                                   "volume_base":  28150.2295,
+                                   "volume_usd":  1797842555.33,
+                                   "return_pct":  1.1841,
+                                   "log_return":  0.011771,
+                                   "volatility":  2462.82,
+                                   "average_price":  62996.94,
+                                   "z_score_close":  1.0259,
+                                   "is_anomaly":  false,
+                                   "volume_rank":  1,
+                                   "market_dominance_pct":  40.461,
+                                   "regime_label":  "Sideways"
+                               }
+                           ]
+}

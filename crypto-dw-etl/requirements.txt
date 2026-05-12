@@ -11,3 +11,11 @@ python-dateutil>=2.8,<3        # Flexible date parsing fallback in parsers.py
 
 # --- Testing ---
 pytest>=7.0,<9                 # Unit test runner for tests/
+
+# --- DB & Data Processing ---
+psycopg2-binary                 # connect postgresql
+pandas                          # use for process data
+scikit-learn                    # use for machine learning
+streamlit                       # use for web app
+plotly                          # use for beautiful chart in streamlit
+sqlalchemy                      # use for connect database

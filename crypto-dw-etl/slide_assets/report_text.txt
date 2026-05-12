@@ -1,0 +1,2323 @@
+ĐẠI HỌC QUỐC GIA THÀNH PHỐ HỒ CHÍ MINH
+TRƯỜNG ĐẠI HỌC BÁCH KHOA
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH
+
+KHO DỮ LIỆU
+VÀ HỆ HỖ TRỢ QUYẾT ĐỊNH – CO4031
+
+BÀI TẬP LỚN
+
+THIẾT KẾ VÀ XÂY DỰNG KHO DỮ LIỆU
+CRYPTO HỖ TRỢ PHÂN TÍCH VÀ DỰ
+BÁO THỊ TRƯỜNG
+
+Giảng viên hướng dẫn:
+Lớp:
+Sinh viên thực hiện:
+
+ThS. Bùi Tiến Đức
+L02
+Đinh Lê Phúc Duy
+Nguyễn Hồ Phước Hiền
+Phạm Thanh Phong
+Nguyễn Võ Công Phương
+Nguyễn Bá Việt Quang
+
+THÀNH PHỐ HỒ CHÍ MINH – 12/2025
+
+2210500
+2211027
+2212564
+2212700
+2212741
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Phân công nhiệm vụ
+
+STT
+
+Họ tên
+
+MSSV
+
+Mô tả đóng góp
+
+1
+
+Đinh Lê Phúc Duy
+
+2210500
+
+2
+
+Nguyễn Hồ Phước Hiền
+
+2211027
+
+3
+
+Phạm Thanh Phong
+
+2212564
+
+4
+
+Nguyễn Võ Công Phương
+
+2212700
+
+Áp dụng công cụ/thuật toán
+
+100%
+
+5
+
+Nguyễn Bá Việt Quang
+
+2212741
+
+Áp dụng công cụ/thuật toán
+
+100%
+
+Phân tích và thảo luận kết quả
+
+Tỉ lệ đóng góp
+
+100%
+
+Mô tả bài toán
+Ràng buộc bổ sung
+
+100%
+
+Tiền xử lý dữ liệu
+Áp dụng công cụ/thuật toán
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+100%
+
+I
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Mục lục
+1 Giới thiệu
+
+1
+
+1.1
+
+Định nghĩa bài toán . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+
+1.2
+
+Phương pháp tiếp cận . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+
+2 Thu thập dữ liệu và tiền xử lý dữ liệu
+
+2
+
+2.1
+
+Mục đích . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+2
+
+2.2
+
+Các bước xử lý chính . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+3
+
+2.3
+
+Kết quả đầu ra . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+4
+
+2.4
+
+Thiết kế kho dữ liệu . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5
+
+2.4.1
+
+Mô hình dữ liệu (Star Schema) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5
+
+2.4.2
+
+Chi tiết thiết kế các bảng (Star Schema) . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6
+
+2.4.3
+
+Phương án thay thế: Mô hình Snowflake Schema . . . . . . . . . . . . . . . . . . . . . . .
+
+7
+
+3 Phương pháp đề xuất
+
+8
+
+3.1
+
+Mục đích . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+
+3.2
+
+Các bước áp dụng chính . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+8
+
+3.3
+
+Kết quả kỳ vọng . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+
+4 Kết quả đạt được
+4.1
+
+4.2
+
+4.3
+
+9
+
+Phân tích OLAP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+
+4.1.1
+
+Các view OLAP cốt lõi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+
+4.1.2
+
+Diễn biến giá tổng hợp (Combined Price Trend) . . . . . . . . . . . . . . . . . . . . . . . 10
+
+4.1.3
+
+Xếp hạng khối lượng giao dịch năm 2025
+
+4.1.4
+
+Heatmap lợi suất tháng . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+
+4.1.5
+
+Tổng hợp các thao tác OLAP áp dụng . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+
+Data Visualization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+4.2.1
+
+Biểu đồ giá đóng cửa của từng coin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+
+4.2.2
+
+Biểu đồ so sánh khối lượng giao dịch trung bình các coin . . . . . . . . . . . . . . . . . . 17
+
+4.2.3
+
+Biểu đồ so sánh hiệu suất đầu tư (Cumulative Growth) . . . . . . . . . . . . . . . . . . . 18
+
+4.2.4
+
+Biểu đồ biến động trượt (Rolling Volatility) . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+
+4.2.5
+
+Biểu đồ so sánh phân phối lợi nhuận giữa các coin . . . . . . . . . . . . . . . . . . . . . . 21
+
+4.2.6
+
+Biểu đồ phân tích đột biến khối lượng (Volume Spike) . . . . . . . . . . . . . . . . . . . . 22
+
+4.2.7
+
+Heatmap tương quan và đồng biến động . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+
+Data Mining . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+4.3.1
+
+Hồi quy tuyến tính (Linear Regression) . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+
+4.3.2
+
+Gom cụm (K-Means Clustering) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+II
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.3.3
+
+Phát hiện bất thường (Anomaly Detection) . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+
+5 Tích hợp Business Intelligence và Xây dựng Dashboard
+
+31
+
+5.1
+
+Hiện thực hóa mô hình dữ liệu trong Power BI . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+
+5.2
+
+Phân hệ 1 – Crypto Market Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+
+5.3
+
+Phân hệ 2 – Data Mining Insights . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+
+5.4
+
+Tính năng OLAP Drill-down . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+
+5.5
+
+Ứng dụng Streamlit Dashboard . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+
+5.6
+
+So sánh hai nền tảng . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+
+6 Demo hệ thống
+
+36
+
+6.1
+
+Giao diện Dashboard Streamlit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+
+6.2
+
+Kịch bản Demo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+
+6.3
+
+CSV mode – chạy không cần PostgreSQL . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+
+7 Phân tích, thảo luận và hướng phát triển
+
+42
+
+7.1
+
+Tổng quan kết quả chính . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+
+7.2
+
+Ý nghĩa và Ứng dụng . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+
+7.3
+
+Hạn chế nghiên cứu
+
+7.4
+
+Hướng phát triển và đề xuất cải tiến . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+
+Phụ lục
+
+44
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+III
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+1
+
+Giới thiệu
+
+1.1
+
+Định nghĩa bài toán
+
+Thị trường tiền mã hoá (cryptocurrency) đã trở thành một lớp tài sản mới có quy mô vốn hoá hàng nghìn tỷ
+USD, chịu ảnh hưởng trực tiếp từ chính sách tiền tệ, tin tức công nghệ và tâm lý nhà đầu tư toàn cầu. So với cổ
+phiếu truyền thống, dữ liệu crypto có đặc thù riêng: giao dịch liên tục 24/7, biến động giá rất mạnh (volatility
+cao gấp 5–10 lần thị trường chứng khoán), tập trung chủ yếu trên các sàn lớn như Binance, Coinbase, OKX,
+và phân hoá rõ rệt giữa các nhóm tài sản (Layer-1, Layer-2, Stablecoin, Meme, Payment). Bối cảnh đó khiến
+nhu cầu xây dựng một kho dữ liệu (Data Warehouse) chuyên biệt để hỗ trợ ra quyết định trở nên cấp thiết.
+Báo cáo sử dụng dữ liệu lịch sử giá nến ngày (daily klines) của 10 đồng coin có vốn hoá lớn nhất theo
+Binance gồm BTC, ETH, BNB, SOL, XRP, ADA, DOGE, TRX, DOT, MATIC. Dữ liệu được trích xuất trực
+tiếp từ Binance REST API endpoint /api/v3/klines [10], cung cấp các trường tiêu chuẩn: thời điểm mở/đóng
+phiên, OHLC (Open/High/Low/Close), khối lượng giao dịch (Volume) và khối lượng quy đổi USD. Mẫu dữ
+liệu kéo dài 730 ngày gần nhất cho mỗi coin (riêng MATIC có cửa sổ 2022–2024 vì Binance đã delist sau khi
+Polygon rebrand sang POL vào 09/2024), tổng cộng 7 300 dòng trong Gold layer.
+Mục tiêu của phân tích là (i) xây dựng pipeline ETL hoàn chỉnh đưa dữ liệu thô từ Binance vào Kho dữ liệu
+PostgreSQL chuẩn Star Schema, (ii) đo lường và so sánh hiệu suất, độ biến động, mức sụt giảm tối đa giữa các
+nhóm coin, (iii) áp dụng các kỹ thuật khai phá dữ liệu (hồi quy, phân cụm, phát hiện bất thường) để rút ra các
+tín hiệu định lượng, và (iv) trực quan hoá kết quả qua dashboard Power BI và Streamlit để hỗ trợ người dùng
+cuối ra quyết định. Các chỉ số trọng tâm bao gồm lợi suất (return_pct), log return, độ biến động nội ngày,
+Z-Score rolling 30 ngày, market dominance và regime label (Bull/Bear/Sideways).
+
+1.2
+
+Phương pháp tiếp cận
+
+Mục tiêu phân tích:
+ Ingestion 24/7: Thu thập dữ liệu giá nến ngày của 10 đồng coin từ Binance REST API, đảm bảo
+
+idempotent (có thể chạy lại) và chịu lỗi mạng.
+ Chuẩn hoá và tải vào Staging: Parse timestamp ms, ép kiểu NUMERIC(18,8) cho giá và NUMERIC(20,4)
+
+cho khối lượng, kiểm tra ràng buộc OHLC (low ≤ open, close, high).
+ Tính toán metrics ở tầng Transform: Bao gồm return_pct, log_return, volatility (high−low),
+
+average_price, volume_usd, z_score_close (cửa sổ trượt 30 ngày), is_anomaly (cờ |z| > 2),
+volume_rank và market_dominance_pct.
+ Mô hình hoá theo Star Schema [12]: Bảng sự kiện fact_market_daily kết nối với 3 bảng chiều
+
+dim_date, dim_coin, dim_category (4 nhóm: L1, L2, Meme, Payment kèm risk_level).
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 1/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Phân tích đa chiều OLAP [5]: Xây dựng 3 view phân tích (lợi suất tuần theo category, bảng xếp hạng
+
+volume, danh sách phiên anomaly) phục vụ slice & dice và drill-down.
+ Khai phá dữ liệu (Data Mining):
+
+– Linear Regression: Dự báo giá đóng cửa ngày T+1 với các feature OHLCV + lag.
+– K-Means Clustering (k=3): Phân nhóm 10 coin theo hành vi rủi ro–lợi suất.
+– Anomaly Detection: Phát hiện các phiên có biến động cực đoan dựa trên Z-Score rolling 30 ngày.
+ Trực quan hoá đa nền tảng: Dashboard Power BI cho lãnh đạo (chiến lược) và web app Streamlit
+
+(Plotly) cho người dùng cuối với 5 tab tương tác.
+ Quản trị dữ liệu & Orchestration: Toàn bộ pipeline được điều phối bằng run_pipeline.bat/.sh
+
+(Python → psql → SQL → Views), có log tự động theo ngày và script run_pipeline_rollback.bat để
+rollback khi cần.
+Hai phần trên định vị rõ: (i) nguồn dữ liệu Binance cùng đặc thù 24/7 và phương pháp chuẩn hoá để sẵn sàng
+cho Kho dữ liệu; (ii) các mục tiêu phân tích tập trung vào khai thác thông tin chi tiết, áp dụng các kỹ thuật
+học máy cơ bản và trực quan hoá tương tác để hỗ trợ ra quyết định trên thị trường tiền mã hoá đầy biến động.
+
+2
+
+Thu thập dữ liệu và tiền xử lý dữ liệu
+
+Dữ liệu phân tích được trích xuất trực tiếp từ Binance Public REST API [10], endpoint /api/v3/klines cho
+phép tải về nến ngày của 10 cặp giao dịch (USDT) gồm BTC, ETH, BNB, SOL, XRP, ADA, DOGE, TRX, DOT,
+MATIC. Mỗi response trả về 13 trường tiêu chuẩn: open_time, open, high, low, close, volume, close_time,
+quote_asset_volume, number_of_trades, taker_buy_base_asset_volume, taker_buy_quote_asset_volume
+và ignore_field. Mỗi coin lấy 730 dòng dữ liệu lịch sử (cửa sổ 2 năm gần nhất, tính đến 2026-04-26), riêng
+MATIC chỉ có dữ liệu đến 09/2024 do bị Binance delist sau khi Polygon rebrand sang POL. Tổng cộng pipeline
+xử lý ∼7 300 dòng dữ liệu thô.
+
+2.1
+
+Mục đích
+Script scripts/1_fetch_binance.py là một chương trình Python đảm nhận vai trò ingestion layer –
+
+thu thập dữ liệu giá crypto từ Binance API và chuẩn hoá thành các tệp CSV đồng nhất, sẵn sàng nạp vào tầng
+Staging của Kho dữ liệu. Cụ thể, chương trình đảm nhận các chức năng sau:
+ Gọi Binance REST API có phân trang (limit 1000 nến/request) cho từng cặp coin/USDT.
+ Chuẩn hoá timestamp Unix mili-giây sang datetime chuẩn ISO.
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 2/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Ép kiểu dữ liệu cho các cột giá (NUMERIC) và khối lượng (volume base/quote).
+ Ghi ra các tệp raw/<SYMBOL>_raw.csv (idempotent, có thể chạy lại nhiều lần).
+ Ghi log thành công/thất bại để phục vụ debug và audit.
+
+2.2
+
+Các bước xử lý chính
+
+a) Cấu hình ban đầu: Đọc cấu hình từ tệp .env (PG_HOST, PG_PORT, PG_DATABASE, PG_USER, PG_PASSWORD).
+Danh sách 10 cặp giao dịch (TICKERS) được khai báo cứng trong script.
+b) Các hàm hỗ trợ trong scripts/parsers.py: Chương trình tái sử dụng các hàm parser từ dự án trước:
+ parse_number: Chuẩn hoá chuỗi số có chứa dấu phẩy/chấm (ví dụ “63,770.00” → 63770.0).
+ parse_date: Chuẩn hoá chuỗi ngày sang datetime.
+ parse_volume: Quy đổi chuỗi “1.2M”, “900K” về số nguyên tuyệt đối.
+
+c) Gọi API và tải dữ liệu: Với mỗi coin, chương trình gửi HTTP GET tới endpoint /api/v3/klines với
+tham số symbol=<SYMBOL>USDT, interval=1d, limit=1000. Tự động retry tối đa 3 lần khi lỗi mạng hoặc
+rate-limit (HTTP 429).
+d) Xử lý từng coin: Sau khi nhận response JSON, chương trình:
+ Convert thời gian từ Unix milliseconds sang open_time/close_time kiểu datetime.
+ Ép kiểu NUMERIC(18,8) cho cột open, high, low, close và NUMERIC(20,4) cho volume,
+
+quote_asset_volume.
+ Tính các metric phái sinh ở tầng Transform (qua Pentaho hoặc SQL fallback):
+
+– Return_pct: (Close − Open)/Open × 100
+– Volume_USD: Close × V olume
+– Volatility: High − Low
+– Average_price: (High + Low)/2
+– Log_return: ln(Close) − ln(Open)
+– Z_score_close: (Close − µ30 )/σ30 với cửa sổ rolling 30 ngày
+– Is_anomaly: |z_score| > 2
+ Sắp xếp theo open_time tăng dần và lưu ra raw/<SYMBOL>_raw.csv.
+
+e) Tải lên Staging và Gold: Sau khi 10 file CSV được sinh xong, pipeline gọi psql \copy (hoặc Pentaho
+job 01_clean.kjb) để nạp vào staging.ohlcv_raw. Tiếp theo, script 02_transform_fallback.sql (hoặc
+02_transform.kjb) tính các metric và đẩy vào staging.fact_prep. Cuối cùng 03_load_gold.sql thực
+hiện TRUNCATE + INSERT vào gold.fact_market_daily.
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 3/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+2.3
+
+Kết quả đầu ra
+
+ 10 tệp CSV thô tại raw/<SYMBOL>_raw.csv – đầu vào cho Pentaho/SQL.
+ Bảng staging.ohlcv_raw chứa ∼7 300 dòng dữ liệu đã chuẩn hoá kiểu.
+ Bảng gold.fact_market_daily (Star Schema) sẵn sàng cho OLAP và Data Mining.
+ 3 OLAP view: v_weekly_return_by_category, v_volume_leaderboard, v_top_anomalies.
+
+Hình 2.1: Kiến trúc luồng dữ liệu ETL và cấu trúc Schema của Kho dữ liệu Crypto
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 4/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+2.4
+
+Thiết kế kho dữ liệu
+
+2.4.1
+
+Mô hình dữ liệu (Star Schema)
+
+Hình 2.2: Mô hình kiến trúc Star Schema cho Kho dữ liệu Crypto
+
+Dựa trên đặc thù dữ liệu thị trường tiền mã hoá (giao dịch 24/7, biến động cao, phân hoá nhóm rõ rệt) và
+nhu cầu phân tích đa chiều, nhóm lựa chọn kiến trúc Star Schema – mô hình được khuyến nghị cho data
+warehouse phân tích bởi Kimball [12] và được Inmon coi là “physical implementation tự nhiên” cho dimensional
+modeling [9]. Mô hình bao gồm một bảng Fact Table trung tâm fact_market_daily kết nối trực tiếp với ba
+bảng chiều Dimension Tables: dim_date, dim_coin và dim_category.
+Các lý do chính cho việc lựa chọn Star Schema thay vì Snowflake Schema bao gồm:
+ Tối ưu hoá hiệu suất truy vấn: Star Schema giảm thiểu số JOIN. Với mục tiêu so sánh nhanh giữa các
+
+nhóm L1, L2, Meme, Payment, việc phi chuẩn hoá thông tin category_name và risk_level ngay trong
+dim_category (không tách thêm bảng phụ) giúp truy vấn nhanh hơn.
+ Đơn giản hoá cho người dùng cuối: Cấu trúc đơn giản giúp các công cụ BI (Power BI, Streamlit) dễ
+
+dàng mô hình hoá và tương tác.
+ Phù hợp quy mô dữ liệu: Với 10 coin và 4 category, việc chuẩn hoá quá mức không mang lại lợi ích về
+
+lưu trữ.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 5/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+2.4.2
+
+Chi tiết thiết kế các bảng (Star Schema)
+Bảng 2.1: Đặc tả bảng sự kiện: gold.fact_market_daily
+
+Tên trường
+
+Kiểu dữ liệu
+
+Ràng buộc
+
+Mô tả
+
+date_id
+coin_id
+open
+high
+low
+close
+volume_base
+volume_usd
+return_pct
+log_return
+volatility
+average_price
+z_score_close
+is_anomaly
+volume_rank
+market_dominance_pct
+regime_label
+
+int
+int
+numeric(18,8)
+numeric(18,8)
+numeric(18,8)
+numeric(18,8)
+numeric(20,4)
+numeric(20,2)
+numeric(10,4)
+numeric(10,6)
+numeric(18,8)
+numeric(18,8)
+numeric(10,4)
+boolean
+int
+numeric(6,3)
+varchar(16)
+
+PK, FK
+PK, FK
+
+Khóa ngoại → dim_date
+Khóa ngoại → dim_coin
+Giá mở phiên
+Giá cao nhất
+Giá thấp nhất
+Giá đóng phiên
+Khối lượng đơn vị coin
+close × volume_base
+(close − open)/open × 100
+ln(close) − ln(open)
+high − low
+(high + low)/2
+Z-Score rolling 30 ngày
+|z_score| > 2
+RANK theo volume_usd mỗi ngày
+volume_usd/SU M (ngày) × 100
+Bull / Bear / Sideways
+
+Bảng 2.2: Đặc tả bảng chiều: gold.dim_coin
+
+Tên trường
+
+Kiểu dữ liệu
+
+Ràng buộc
+
+Mô tả
+
+coin_id
+symbol
+full_name
+launch_year
+category_id
+
+int
+varchar(10)
+varchar(50)
+int
+int
+
+PK
+NN, UQ
+
+Khoá đại diện
+Mã giao dịch (BTC, ETH, ...)
+Tên đầy đủ (Bitcoin, Ethereum, ...)
+Năm ra mắt
+→ dim_category
+
+FK
+
+Bảng 2.3: Đặc tả bảng chiều: gold.dim_category
+
+Tên trường
+
+Kiểu dữ liệu
+
+Ràng buộc
+
+Mô tả
+
+category_id
+category_name
+risk_level
+
+int
+varchar(20)
+varchar(10)
+
+PK
+NN
+
+Khoá nhóm
+L1 / L2 / Meme / Payment
+Low / Mid / High
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 6/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Bảng 2.4: Đặc tả bảng chiều thời gian: gold.dim_date
+
+2.4.3
+
+Tên trường
+
+Kiểu dữ liệu
+
+Ràng buộc
+
+Mô tả
+
+date_id
+full_date
+year
+quarter
+month
+month_name
+day_of_month
+day_name
+is_weekend
+
+int
+date
+int
+int
+int
+varchar(10)
+int
+varchar(10)
+bool
+
+PK
+NN
+
+Định dạng YYYYMMDD
+Ngày đầy đủ
+Năm
+Quý (1–4)
+Tháng (1–12)
+Jan, Feb, ...
+Ngày trong tháng
+Monday, Tuesday, ...
+Cờ cuối tuần
+
+Phương án thay thế: Mô hình Snowflake Schema
+
+Bên cạnh Star Schema, nhóm cũng xem xét mô hình Snowflake Schema (Lược đồ bông tuyết). Trong phương
+án này, bảng dim_coin có thể được tách thêm các sub-dimension như dim_blockchain (cơ chế đồng thuận:
+PoW, PoS) hoặc dim_protocol (Bitcoin, EVM, Solana VM, ...).
+
+Hình 2.3: Mô hình kiến trúc Snowflake Schema (Chuẩn hoá)
+
+Tuy nhiên với quy mô 10 coin, việc chuẩn hoá thêm sẽ làm tăng số JOIN và phức tạp hoá truy vấn mà không
+mang lại lợi ích về lưu trữ. Do đó nhóm vẫn chọn Star Schema làm thiết kế chính thức.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 7/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+3
+
+Phương pháp đề xuất
+
+3.1
+
+Mục đích
+Hệ thống được thiết kế để phân tích và khám phá dữ liệu thị trường Crypto dựa trên các công cụ
+
+hiện đại và quy trình khoa học. Chương trình sử dụng ba kỹ thuật chính trong kho dữ liệu:
+ OLAP (Online Analytical Processing) để tổng hợp, so sánh và quan sát xu hướng theo nhiều chiều
+
+(Thời gian, Danh mục coin, Chế độ thị trường).
+ Data Mining để khai thác mẫu ẩn trong dữ liệu như dự đoán giá ngắn hạn, phân cụm hành vi rủi ro,
+
+và phát hiện các cú sốc thị trường.
+ Visualization trên đa nền tảng (Power BI & Streamlit) để trực quan hóa dữ liệu, giúp người dùng nhận
+
+diện nhanh các điểm bất thường và cơ hội đầu tư.
+
+3.2
+
+Các bước áp dụng chính
+
+a) Chuẩn bị dữ liệu đầu vào: Dữ liệu được trích xuất từ PostgreSQL Gold Layer thông qua các View
+phân tích. Các trường dữ liệu bao gồm OHLCV kết hợp với các chỉ số tính toán sẵn như Return_pct,
+Z-Score và các nhãn Regime.
+b) Phân tích OLAP: Phân tích đa chiều giúp tổng hợp dữ liệu theo từng danh mục:
+ Slice & Dice: Phân tích hiệu suất của từng Category (Layer 1, Meme) theo các khung thời gian
+
+khác nhau.
+ Drill-down: Khoan sâu từ dữ liệu tổng hợp năm xuống biến động của từng phiên giao dịch cụ thể
+
+để tìm hiểu nguyên nhân bất thường.
+ Pivot Analysis: Bảng xếp hạng thanh khoản (Volume Leaderboard) và tỉ trọng thị trường (Domi-
+
+nance).
+c) Khai phá dữ liệu (Data Mining): Nhóm triển khai 3 kỹ thuật chính thông qua các Jupyter Notebook:
+ Hồi quy tuyến tính (Linear Regression): Dự báo giá T + 1 của các đồng coin vốn hoá lớn.
+ Gom cụm (Clustering) bằng K-Means: Phân loại coin thành các nhóm Leaders, Altcoins và
+
+Speculative dựa trên độ biến động và lợi nhuận.
+ Phát hiện bất thường (Anomaly Detection): Sử dụng Z-Score rolling 30 ngày để gắn cờ các
+
+phiên giao dịch cực đoan.
+d) Trực quan hóa dữ liệu (Visualization): Hệ thống cung cấp giao diện trực quan sinh động:
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 8/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Streamlit Dashboard: Cung cấp các biểu đồ động (Plotly) cho phép tương tác trực tiếp với
+
+Database.
+ Power BI Reports: Báo cáo quản trị chuyên sâu với các biểu đồ Matrix, Treemap và Heatmap.
+
+3.3
+
+Kết quả kỳ vọng
+
+ Hệ thống Pipeline ETL tự động đảm bảo dữ liệu luôn được cập nhật từ Binance.
+ Kho dữ liệu chuẩn Star Schema tối ưu cho việc truy xuất thông tin nhanh chóng.
+ Các mô hình khai phá dữ liệu cung cấp các chỉ báo định lượng có độ tin cậy cao (R2 > 0.98 cho mô hình
+
+hồi quy).
+ Dashboard tương tác giúp người dùng không cần kiến thức kỹ thuật vẫn có thể theo dõi thị trường hiệu
+
+quả.
+
+4
+
+Kết quả đạt được
+
+4.1
+
+Phân tích OLAP
+
+OLAP (Online Analytical Processing) [5] là kỹ thuật trung tâm để khai thác Kho dữ liệu theo nhiều chiều khác
+nhau. Trên gold.fact_market_daily kết hợp với 3 bảng chiều (dim_date, dim_coin, dim_category), nhóm
+xây dựng 3 view phân tích sẵn sàng cho dashboard và 3 báo cáo trực quan tổng hợp.
+4.1.1
+
+Các view OLAP cốt lõi
+
+ gold.v_weekly_return_by_category: Trung bình return_pct theo tuần và category_name, dùng cho
+
+biểu đồ heatmap so sánh hiệu suất giữa nhóm L1, L2, Meme và Payment.
+ gold.v_volume_leaderboard: Bảng xếp hạng thanh khoản (volume_usd) toàn bộ kỳ, có volume_rank
+
+chốt mỗi ngày.
+ gold.v_top_anomalies: Danh sách các phiên có is_anomaly = TRUE (|z_score| > 2), hỗ trợ cảnh báo
+
+sớm các sự kiện cực đoan.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 9/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.1.2
+
+Diễn biến giá tổng hợp (Combined Price Trend)
+
+Hình 4.1: Diễn biến giá đóng cửa của 10 coin (chuẩn hoá về 1.0 ở đầu kỳ)
+
+Biểu đồ 4.1 chuẩn hoá giá đóng cửa về mức 1.0 vào ngày bắt đầu mẫu (27/04/2024) để có thể so sánh trực tiếp
+hiệu suất tích luỹ giữa 9 coin. MATIC bị loại khỏi biểu đồ tổng hợp này do khung thời gian khác biệt (Binance
+đã delist sau khi Polygon rebrand sang POL vào 09/2024). Có thể quan sát rõ:
+ Nhóm dẫn dắt: BTC, BNB và TRX duy trì xu hướng tăng tương đối ổn định, kết thúc kỳ với mức tăng
+
+dương đáng kể.
+ Nhóm phân hoá mạnh: XRP có cú bứt phá ngoạn mục cuối 2024 (sau pha tăng vọt liên quan ETF),
+
+trong khi DOT, ADA, MATIC liên tục downtrend, mất phần lớn giá trị so với đầu kỳ.
+ Tương quan ngành rõ rệt: Pha sụt giảm chung cuối Q1/2025 thể hiện đặc tính đồng pha cao của
+
+crypto – một sự kiện vĩ mô (lãi suất, tin tức quy định) tác động đến gần như toàn thị trường.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 10/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.1.3
+
+Xếp hạng khối lượng giao dịch năm 2025
+
+Hình 4.2: Tổng khối lượng giao dịch năm 2025 (Billion USD) – xếp hạng top 10 coin
+
+Biểu đồ 4.2 sử dụng aggregation SUM(volume_usd) từ 01/01/2025 đến hết kỳ, nhóm theo symbol. Kết quả cho
+thấy sự phân hoá thanh khoản cực mạnh:
+ BTC vẫn áp đảo với khối lượng giao dịch quy đổi USD vượt trội, củng cố vị thế tài sản số “vàng kỹ
+
+thuật số”.
+ ETH và SOL chia sẻ vị trí dẫn dắt nhóm Layer-1 thay thế.
+ Nhóm còn lại (ADA, DOT, MATIC, TRX, ...) có thanh khoản thấp hơn 1–2 bậc magnitude, phản ánh
+
+xu hướng dòng tiền tập trung vào các coin có nền tảng vững chắc.
+Đây cũng là cơ sở cho chiến lược “follow the volume” khi phát hiện breakout/breakdown – chỉ những tín hiệu
+giá trên BTC/ETH/SOL kèm volume spike mới đáng tin cậy.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 11/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.1.4
+
+Heatmap lợi suất tháng
+
+Hình 4.3: Heatmap lợi suất tháng (cumulative log-return ×100) theo coin
+
+Biểu đồ 4.3 là dạng pivot trục Coin × Month với giá trị là tổng log_return theo tháng (chuyển sang %). Màu
+xanh lá biểu thị tháng tăng giá, màu đỏ biểu thị tháng giảm. Đây chính là một thao tác OLAP Pivot/Rotate
+điển hình. Quan sát:
+ Các tháng có cú bùng nổ chung (cả cột màu xanh sáng) thường trùng với các sự kiện vĩ mô tích cực: ETF
+
+được phê duyệt, Bitcoin halving, Fed cắt lãi suất.
+ Các tháng giảm sâu đồng loạt (cả cột màu đỏ đậm) trùng với các sự kiện rủi ro hệ thống.
+ DOGE và XRP thường xuyên có biên độ tháng lớn nhất (cả tăng lẫn giảm), khẳng định đặc tính “high-
+
+volatility / event-driven” của hai mã này.
+Heatmap này cho phép thực hiện thao tác Drill-down đơn giản: từ một ô có biến động bất thường, người
+dùng có thể truy vấn xuống cấp ngày để tìm phiên cụ thể, sau đó cross-reference với v_top_anomalies để tìm
+nguyên nhân.
+4.1.5
+
+Tổng hợp các thao tác OLAP áp dụng
+
+ Slice: Lọc theo một ngày (WHERE date_id = 20250115) hoặc một coin.
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 12/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Dice: Cắt theo tổ hợp nhiều chiều, ví dụ chỉ xem nhóm L1 trong Q2/2025.
+ Drill-down / Roll-up: Từ mức năm → quý → tháng → ngày qua dim_date.
+ Pivot: Xoay trục như Heatmap Coin × Month ở hình 4.3.
+
+4.2
+
+Data Visualization
+
+Phần này trình bày trực quan hoá hành vi giá, thanh khoản, độ biến động và phân phối lợi suất của 10 đồng
+coin trong Kho dữ liệu (BTC, ETH, BNB, SOL, XRP, ADA, DOGE, TRX, DOT, MATIC). Tất cả các biểu
+đồ được sinh trực tiếp từ gold.fact_market_daily thông qua script tools/generate_report_images.py sử
+dụng các thư viện chuẩn matplotlib và seaborn [13].
+4.2.1
+
+Biểu đồ giá đóng cửa của từng coin
+
+4.2.1.1
+
+Bitcoin (BTC) – “vàng kỹ thuật số”
+
+Hình 4.4: Diễn biến giá đóng cửa của BTC (USDT)
+
+Biểu đồ 4.4 cho thấy BTC trải qua chu kỳ tăng trưởng mạnh sau Halving (04/2024), bứt phá vùng đỉnh cũ và
+lập đỉnh lịch sử mới. Sau giai đoạn phấn khích này là một pha điều chỉnh sâu (drawdown ∼50%) trước khi ổn
+định lại. Đặc trưng của BTC: biến động lớn nhưng có tính chu kỳ rõ rệt, là đại diện “low-vol” trong nhóm coin
+(so với altcoin còn lại) và đóng vai trò “tài sản trú ẩn” trong các giai đoạn rủi ro cao.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 13/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.2.1.2
+
+Ethereum (ETH) – nền tảng smart contract dẫn đầu
+
+Hình 4.5: Diễn biến giá đóng cửa của ETH (USDT)
+
+Biểu đồ 4.5 cho thấy ETH có hiệu suất kém hơn BTC trong giai đoạn này: pha tăng trưởng yếu, drawdown tới
+∼63% từ đỉnh. Lý do chính là sự cạnh tranh từ các Layer-1 đối thủ (SOL) và sự hấp dẫn dòng tiền vào BTC
+ETF.
+4.2.1.3
+
+Solana (SOL) – “ETH killer” với độ biến động cao
+
+Hình 4.6: Diễn biến giá đóng cửa của SOL (USDT)
+
+SOL (hình 4.6) là minh chứng cho “high risk – high reward”. Cú tăng vượt bậc cuối 2024 (theo đà meme coin
+trên hệ Solana) đi kèm drawdown ∼70% sau khi pha hype kết thúc.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 14/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.2.1.4
+
+XRP – biến động kiểu sự kiện (event-driven)
+
+Hình 4.7: Diễn biến giá đóng cửa của XRP (USDT)
+
+XRP (hình 4.7) thể hiện rõ kiểu biến động “event-driven”: giá đi ngang trong nhiều tháng, sau đó bùng nổ rất
+nhanh khi có tin tức (vụ kiện SEC, ETF). Pha tăng vọt cuối 2024 đưa XRP lên top coin có lợi suất tích luỹ
+cao nhất trong nhóm phân tích.
+4.2.1.5
+
+DOGE – meme coin điển hình
+
+Hình 4.8: Diễn biến giá đóng cửa của DOGE (USDT)
+
+DOGE (hình 4.8) là đại diện cho nhóm Meme với risk_level = High. Biên độ biến động cực lớn, drawdown
+lên tới ∼81% từ đỉnh – minh hoạ rõ rủi ro tail của các coin có yếu tố “meme”.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 15/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.2.1.6
+
+Cardano (ADA), Polkadot (DOT), Polygon (MATIC) – các altcoin underperformer
+
+(a) ADA – drawdown ∼80%
+
+(b) DOT – drawdown ∼89%
+
+(c) MATIC – delist 09/2024 sau khi rebrand POL
+Hình 4.9: Nhóm underperformer: ADA, DOT, MATIC
+
+Cả ba mã (hình 4.9) đều rơi vào downtrend kéo dài. ADA và DOT mất 80–89% giá trị từ đỉnh; MATIC bị
+Binance delist sau rebrand POL nên dữ liệu chỉ kéo dài đến 09/2024. Đây là nhóm cần thận trọng nhất trong
+phân bổ danh mục.
+4.2.1.7
+
+BNB, TRX – nhóm low-vol ổn định
+
+(a) BNB
+
+(b) TRX
+Hình 4.10: Nhóm low-vol: BNB, TRX
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 16/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+BNB và TRX (hình 4.10) duy trì xu hướng tăng tương đối ổn định, biến động thấp nhất trong nhóm 10 coin.
+TRX đặc biệt nổi bật với lợi suất trung bình ngày dương rõ rệt và drawdown chỉ ∼51% – thấp nhất trong nhóm
+altcoin.
+4.2.2
+
+Biểu đồ so sánh khối lượng giao dịch trung bình các coin
+
+Hình 4.11: Khối lượng giao dịch trung bình hằng ngày (Million USD)
+
+Biểu đồ 4.11 cho thấy sự phân cực thanh khoản cực mạnh giữa 10 coin:
+ Nhóm 1 – Thanh khoản vượt trội: BTC và ETH áp đảo, khối lượng giao dịch trung bình hàng ngày
+
+lên tới hàng tỷ USD.
+ Nhóm 2 – Thanh khoản tốt: SOL, XRP, DOGE, BNB ở mức hàng trăm triệu USD.
+ Nhóm 3 – Thanh khoản thấp: ADA, TRX, DOT, MATIC – thanh khoản tương đối hạn chế so với
+
+nhóm dẫn đầu.
+Hệ luận quan trọng:
+ Tín hiệu giá có độ tin cậy khác nhau giữa các nhóm. Một breakout trên BTC/ETH với volume spike đáng
+
+tin cậy hơn nhiều so với một biến động cùng biên độ trên DOT/MATIC.
+ Cần chuẩn hoá khi gom cụm. Sự chênh lệch volume giữa BTC (∼1010 ) và DOT/MATIC (∼107 ) là 3 bậc
+
+magnitude, nên K-Means buộc phải qua StandardScaler hoặc dùng log10(volume_usd) để tránh thiên
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 17/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+lệch.
+4.2.3
+
+Biểu đồ so sánh hiệu suất đầu tư (Cumulative Growth)
+
+Hình 4.12: So sánh hiệu suất đầu tư – Cumulative Growth của $1 đầu kỳ
+
+Biểu đồ 4.12 chuẩn hoá giá trị của tất cả 10 coin về mức 1.0 vào đầu kỳ (27/04/2024). Đường biểu diễn cho
+thấy giá trị của $1 đầu tư ban đầu sẽ thay đổi như thế nào theo thời gian:
+ Outperformer – XRP, TRX, BTC: Có lợi suất trung bình ngày dương rõ rệt, kết thúc kỳ với mức
+
+tăng trưởng vượt trội. XRP đặc biệt nổi bật với cú bứt phá cuối 2024.
+ Trung tính – BNB: Lợi suất trung bình ngày gần 0, đường cumulative growth dao động quanh mức
+
+1.0.
+ Underperformer – ETH, SOL, DOGE: Sau pha tăng đầu kỳ, đều rơi vào downtrend, kết thúc dưới
+
+mức 1.0.
+ Lỗ nặng – ADA, DOT, MATIC: Mất 50–80% giá trị, đại diện cho nhóm rủi ro cao nhưng không có
+
+phần thưởng tương xứng trong giai đoạn này.
+Khi kết hợp với biểu đồ thanh khoản (4.11), các cụm hiển hiện rõ:
+ Cụm 1 (High Return + High Volume): BTC, XRP
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 18/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Cụm 2 (Low Return + High Volume): ETH, SOL
+ Cụm 3 (Stable + Low/Mid Volume): BNB, TRX
+ Cụm 4 (Negative Return + Low Volume): ADA, DOT, MATIC, DOGE
+
+4.2.4
+
+Biểu đồ biến động trượt (Rolling Volatility)
+
+Hình 4.13: Mức độ biến động giá – std log-return cửa sổ 20 ngày
+
+Biểu đồ 4.13 thể hiện độ lệch chuẩn của log-return trên cửa sổ trượt 20 ngày, đo lường rủi ro ngắn hạn của từng
+coin:
+ Volatility Clustering: Hiện tượng “rủi ro tụ lại” rất rõ – khi một coin bắt đầu biến động mạnh, nó có
+
+xu hướng duy trì trạng thái rủi ro cao trong nhiều tuần (ví dụ giai đoạn cuối Q1/2025 cả thị trường cùng
+biến động mạnh).
+ Phân nhóm khẩu vị rủi ro:
+
+– Rủi ro cao thường trực: ADA, DOGE, DOT, SOL gần như luôn nằm ở nửa trên biểu đồ với std hằng
+ngày 4–5%.
+– Rủi ro thấp ổn định: BTC, BNB, TRX có std hằng ngày chủ yếu 2–3%, nửa thấp hơn nhóm còn lại.
+– Rủi ro thay đổi theo sự kiện: XRP có giai đoạn biến động cực cao quanh các sự kiện kiện tụng/ETF,
+sau đó trở lại mức trung bình.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 19/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 4.14: Mức độ biến động giá – std log-return cửa sổ 60 ngày
+
+Biểu đồ 4.14 dùng cửa sổ trượt 60 ngày, loại bỏ nhiễu ngắn hạn để thể hiện cấu trúc rủi ro dài hạn:
+ Nhóm nền tảng (BTC, BNB, TRX) có đường biểu diễn ổn định ở vùng thấp – xác nhận đặc tính “low
+
+structural risk”.
+ Nhóm altcoin biến động cao (ADA, DOGE, DOT) duy trì đường biểu diễn ở vùng cao trong hầu hết kỳ.
+
+Đây là feature quan trọng cho việc gom cụm bằng K-Means – thay vì dùng volatility 20 ngày dễ bị nhiễu, dùng
+volatility 60 ngày giúp K-Means nhận diện chính xác hơn các nhóm có đặc tính rủi ro tương đồng.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 20/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.2.5
+
+Biểu đồ so sánh phân phối lợi nhuận giữa các coin
+
+Hình 4.15: Phân phối log-return hằng ngày của 10 coin
+
+Biểu đồ 4.15 thể hiện phân phối log-return hằng ngày. Mỗi hộp (box) chứa 50% số ngày giao dịch điển hình;
+các chấm tròn ngoài râu (whisker) là các phiên outlier cần được phát hiện bằng Anomaly Detection.
+ Trung vị – hiệu suất kỳ vọng: XRP và TRX có median dương rõ rệt; BTC, BNB gần 0; ETH, SOL,
+
+ADA, DOT, MATIC có median âm.
+ Độ rộng hộp – biến động: ADA, DOGE, SOL có hộp rộng nhất, là nhóm rủi ro cao. BTC, BNB, TRX
+
+có hộp hẹp nhất.
+ Outlier: Tất cả coin đều có outlier đối xứng cả hai phía, nhưng DOGE và XRP có nhiều outlier nhất,
+
+phù hợp với đặc tính “event-driven”.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 21/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.2.6
+
+Biểu đồ phân tích đột biến khối lượng (Volume Spike)
+
+Hình 4.16: Volume Spike vs Daily Return
+
+Biểu đồ 4.16 thể hiện mối quan hệ giữa khối lượng giao dịch (trục X, đơn vị tỷ USD) và lợi nhuận % (trục Y).
+Một phiên được đánh dấu là Volume Spike (chấm đỏ) khi volume_usd > 2 × rolling_median_20d.
+ Phiên thường (xanh): Tập trung ở phía trái với volume thấp và return dao động hẹp (±5%) – trạng
+
+thái cân bằng của thị trường.
+ Phiên Volume Spike (đỏ): Phân bố ở phía phải, lệch về biên trên hoặc biên dưới của trục Y. Ít phiên
+
+Spike kết thúc với return ∼0.
+Điều này khẳng định: volume bùng nổ là tín hiệu rõ của biến động giá lớn, theo cả hai chiều.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 22/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 4.17: So sánh |Return| trung bình: Spike vs Non-Spike
+
+Biểu đồ 4.17 là kết luận định lượng: với mọi coin, cột màu cam (|Return| trong ngày Spike) luôn cao gấp 2–3
+lần cột xanh (Non-Spike). Mối quan hệ này phổ quát, không phụ thuộc vào coin cụ thể.
+
+Hình 4.18: Số ngày Volume Spike theo coin
+
+Biểu đồ 4.18 cho thấy số phiên Volume Spike trên 730 ngày của mỗi coin, dao động trong khoảng 50–80 phiên
+(∼7–11%). DOGE và XRP có số phiên spike cao hơn, phù hợp với đặc tính event-driven của hai mã này.
+Quy tắc giao dịch định lượng rút ra:
+ Breakout xác nhận: Một phiên có return > +5% chỉ được coi là tín hiệu phá vỡ đáng tin khi đi kèm
+
+Volume Spike.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 23/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Breakdown xác nhận: Tương tự với phiên giảm sâu return < −5%.
+ Feature dự báo: Cờ is_spike là feature có giá trị cao cho mô hình hồi quy/phân loại biến động.
+
+4.2.7
+
+Heatmap tương quan và đồng biến động
+
+Hình 4.19: Heatmap tương quan log-return giữa 10 coin
+
+Biểu đồ 4.19 thể hiện hệ số tương quan Pearson giữa các chuỗi log-return:
+ Tương quan dương rất mạnh (ρ > 0.8): Hầu hết các cặp altcoin Layer-1 (ETH–SOL, ETH–ADA,
+
+SOL–DOT, ...) cho thấy thị trường crypto vận động đồng pha cao – khi BTC tăng, các altcoin đa phần
+cũng tăng theo.
+ BTC–altcoin (ρ ≈ 0.7 − 0.8): BTC đóng vai trò “benchmark” của toàn thị trường.
+ MATIC tách biệt: Do dữ liệu chỉ đến 09/2024, tương quan với các coin khác thấp hơn rõ rệt.
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 24/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hệ luận về đa dạng hoá [3]: Trong phạm vi 10 coin top, lợi ích đa dạng hoá nội bộ rất hạn chế – gần như tất
+cả đều biến động cùng chiều. Để thực sự giảm rủi ro danh mục, nhà đầu tư cần kết hợp với các tài sản ngoài
+crypto (vàng, trái phiếu, cổ phiếu) – nguyên lý Modern Portfolio Theory [4].
+
+Hình 4.20: Heatmap đồng biến động (hiệp phương sai log-return)
+
+Biểu đồ 4.20 thể hiện ma trận hiệp phương sai (covariance) – khác với tương quan, các giá trị này phản ánh độ
+lớn thực tế của biến động:
+ Đường chéo (phương sai): Cao nhất ở ADA, DOGE, DOT (rủi ro nội tại lớn). Thấp nhất ở BTC và
+
+TRX.
+ Ngoài đường chéo: Tất cả đều dương cao, cho thấy rủi ro danh mục crypto khó giảm chỉ bằng cách đa
+
+dạng hoá nội ngành – một hệ quả định lượng quan trọng cho việc xây dựng portfolio.
+Hai heatmap này là nền tảng toán học cho thuật toán K-Means gom cụm: các coin có hiệp phương sai cao
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 25/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+và cùng dấu sẽ được gom vào cùng cluster, tự động phân biệt nhóm low-vol vs high-vol mà không cần gắn nhãn
+thủ công.
+
+4.3
+
+Data Mining
+
+Phần này áp dụng ba kỹ thuật khai phá dữ liệu trên gold.fact_market_daily [6]: hồi quy tuyến tính (Linear
+Regression) để dự báo giá ngắn hạn, gom cụm K-Means để phân nhóm hành vi 10 coin, và phát hiện bất thường
+(Anomaly Detection) bằng Z-Score rolling. Việc lựa chọn ba kỹ thuật cơ bản này phù hợp với tính chất bài
+toán có n = 10 đối tượng và chuỗi thời gian 730 điểm — một phạm vi mà các mô hình phức tạp hơn (Deep
+Learning) sẽ overfitting nghiêm trọng [11].
+4.3.1
+
+Hồi quy tuyến tính (Linear Regression)
+
+Mục tiêu là xây dựng mô hình dự báo giá đóng cửa của các đồng coin với hai cách tiếp cận khác nhau.
+4.3.1.1
+
+Dự báo giá Close ngày T+1 (mô hình thực tế)
+
+Dùng OHLCV của ngày T cộng các lag feature để dự báo close_next_day:
+CloseT +1 = α0 + α1 OpenT + α2 HighT + α3 LowT + α4 CloseT + α5 V olumeT + α6 M A7T + α7 ZT
+Phương pháp: Time-based split 80/20 (không shuffle để tránh data leakage [11]). Train trên 5̃35 điểm đầu,
+test trên 1̃35 điểm cuối.
+Kết quả thực nghiệm (chạy trên Gold layer, tổng hợp trong bảng 4.1):
+Bảng 4.1: Hiệu suất Linear Regression dự báo CloseT +1 trên 10 coin (split 80/20)
+Coin
+BTC
+ETH
+BNB
+SOL
+XRP
+ADA
+DOGE
+TRX
+DOT
+MATIC
+
+R2
+
+MSE
+
+α0
+
+α4 (Close)
+
+α5 (Vol)
+
+α7 (Z)
+
+0.9639
+0.9689
+0.9800
+0.9659
+0.9619
+0.9468
+0.9468
+0.9436
+0.9205
+0.9606
+
+6
+
+1235.5
+22.4
+4.8
+0.78
+0.011
+0.003
+0.0009
+0.001
+0.022
+0.005
+
+0.7840
+0.7211
+0.8124
+0.7651
+0.8089
+0.7892
+0.7754
+0.7423
+0.7521
+0.8043
+
+−0.0054
+−0.0017
+−0.0021
+−0.0008
+−0.0011
+−0.0014
+−0.0017
+−0.0008
+−0.0019
+−0.0017
+
+−1156.8
+−43.9
+−12.5
+−3.42
+−0.058
+−0.014
+−0.0049
+−0.0043
+−0.121
+−0.025
+
+3.68 × 10
+7 289
+326.5
+17.63
+0.00335
+0.000212
+2.10 × 10−5
+1.50 × 10−5
+0.00873
+0.000544
+
+Phân tích kết quả:
+ Mức độ chính xác: R2 dao động 0.92–0.98 với median ∼ 0.96. Đây là mức cao, nhưng cần cảnh giác:
+
+R2 cao chủ yếu phản ánh tính quán tính giá (giá hôm nay là chỉ báo mạnh cho giá ngày mai) chứ không
+phải khả năng dự báo biến động (đại lượng nhà đầu tư thực sự cần).
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 26/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Coin dễ dự báo nhất là BNB (R2 = 0.98) – do biên độ biến động ngày thấp nhất trong nhóm. Khó
+
+dự báo nhất là DOT (R2 = 0.92) – nhất quán với việc DOT có drawdown sâu nhất (−89%).
+ Hệ số α4 (Close hôm nay) luôn dominant (0.74–0.81), khẳng định Close là feature quan trọng nhất,
+
+đúng kỳ vọng cho chuỗi thời gian random-walk-like.
+ Hệ số α7 (Z-Score) luôn âm – phù hợp lý thuyết mean reversion: khi giá vượt xa trung bình lịch sử
+
+(Z > 0), kỳ vọng có điều chỉnh giảm trong ngày kế tiếp [7]. Đây là phát hiện có ý nghĩa kinh tế chứ không
+chỉ là artifact thống kê.
+Hạn chế của Linear Regression cho chuỗi giá crypto:
+ R2 cao không đồng nghĩa hữu ích. Mô hình chủ yếu dự báo CloseT +1 ≈ CloseT , là một benchmark
+
+naı̈ve. Để đánh giá đúng phải so với “persistence model” và đo bằng directional accuracy (% đoán đúng
+chiều).
+ Giả định linearity và stationary không phù hợp với thị trường crypto vốn phi tuyến và non-stationary.
+
+Các mô hình ARIMA/GARCH [8] hoặc mạng LSTM sẽ phù hợp hơn cho mở rộng tương lai.
+4.3.2
+
+Gom cụm (K-Means Clustering)
+
+Mỗi đồng coin được biểu diễn bằng vector đặc trưng 4 chiều: return_avg (lợi suất trung bình ngày), vol_avg
+(độ biến động ngày), log10(volume_usd_avg) (thanh khoản), max_drawdown (rủi ro đuôi). Vector được chuẩn
+hoá bằng StandardScaler [14] trước khi đưa vào K-Means.
+4.3.2.1
+
+Chọn số cụm k – Validation
+
+Để chọn k một cách khách quan, nhóm chạy K-Means với k = 2, 3, 4, 5, 6 và đo hai chỉ số: Inertia (tổng SSE
+trong cụm, càng nhỏ càng tốt) và Silhouette score (càng gần 1 càng tốt) [1]. Kết quả ở bảng 4.2 và Hình 4.21.
+Bảng 4.2: Kết quả validation K-Means trên 10 coin
+k
+Inertia
+Silhouette
+
+2
+
+3
+
+4
+
+5
+
+6
+
+18.24
+0.374
+
+12.34
+0.281
+
+8.82
+0.236
+
+5.51
+0.256
+
+3.17
+0.230
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 27/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 4.21: Validation K-Means: Inertia (đỏ) và Silhouette (xanh) theo k
+
+Diễn giải kết quả validation:
+ Silhouette cao nhất tại k = 2 (0.374) – về mặt thống kê thuần tuý, K-Means “muốn” chia 10 coin thành
+
+hai nhóm: BTC + tài sản tăng trưởng tốt vs phần còn lại.
+ Tuy nhiên, k = 2 quá thô cho mục đích báo cáo: nó gộp BTC với SOL/XRP – mặc dù 2 nhóm này có
+
+hành vi rủi ro rất khác (BTC drawdown −49%, SOL drawdown −70%).
+ k = 3 (silhouette 0.281) cân bằng giữa độ tách cụm và khả năng diễn giải nghiệp vụ: cho ra ba nhóm
+
+mang ý nghĩa thực tế Leaders / Mid-cap / Speculative – phù hợp với phân loại risk-level đã có sẵn trong
+dim_category (Low / Mid / High).
+ Nhóm chọn k = 3 vì ưu tiên actionability cho người dùng cuối hơn là tối đa hoá silhouette tuyệt đối –
+
+một quyết định thường gặp khi áp dụng K-Means trong domain finance [2].
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 28/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+4.3.2.2
+
+Kết quả K-Means k = 3
+
+Hình 4.22: K-Means clustering (k = 3) cho 10 đồng coin – chiếu PCA 2D
+
+Bảng 4.3: Đặc trưng từng cluster sau khi K-Means hội tụ
+Cluster
+
+Coin
+
+Vol/ngày
+
+Drawdown
+
+Tính chất
+
+2 – “Leaders”
+0 – “Mid-cap”
+1 – “Speculative”
+
+BTC, BNB, TRX
+ETH, SOL, XRP
+ADA, DOGE, DOT, MATIC
+
+2.4–3.4%
+3.7–4.3%
+4.3–4.9%
+
+−49% đến −55%
+−63% đến −70%
+−76% đến −89%
+
+Low-vol, ổn định
+Tăng trưởng kèm rủi ro vừa
+Biến động cao, drawdown sâu
+
+Hệ luận đầu tư:
+ Tỷ trọng cao nhất nên đặt vào cụm Leaders (BTC, BNB, TRX) – thoả khẩu vị “ăn chắc, mặc bền”.
+ Tỷ trọng trung bình cho cụm Mid-cap (ETH, SOL, XRP) – đặt cược vào hệ sinh thái smart contract.
+ Tỷ trọng nhỏ và mang tính đầu cơ với cụm Speculative – chỉ phù hợp với nhà đầu tư chấp nhận rủi ro
+
+tail rất lớn.
+4.3.3
+
+Phát hiện bất thường (Anomaly Detection)
+
+Phương pháp: Z-Score được tính riêng cho từng coin với cửa sổ rolling 30 ngày để kiểm soát tính phi dừng
+(non-stationarity) của chuỗi giá [8]:
+zt =
+
+Closet − µ30 (Close)
+,
+σ30 (Close)
+
+phiên là anomaly ⇐⇒ |zt | > 2
+
+Kết quả tổng hợp:
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 29/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Bảng 4.4: Tỷ lệ phiên anomaly trên từng coin (730 ngày)
+Coin
+
+Số phiên
+
+Tỷ lệ (%)
+
+BTC
+ETH
+BNB
+SOL
+XRP
+
+89
+85
+87
+86
+82
+
+12.19
+11.64
+11.92
+11.78
+11.23
+
+Coin
+ADA
+DOGE
+TRX
+DOT
+MATIC
+
+Số phiên
+
+Tỷ lệ (%)
+
+87
+84
+107
+77
+90
+
+11.92
+11.51
+14.66
+10.55
+12.33
+
+Tỷ lệ anomaly trung bình ∼ 12%, cao gấp ∼ 2.5 lần so với giả định lý thuyết về phân phối chuẩn (|z| > 2 ⇒
+4.55%). Điều này khẳng định chuỗi giá crypto có phân phối fat-tail, không tuân theo phân phối Gauss [7].
+4.3.3.1
+
+Case study – Anomaly có ý nghĩa kinh tế
+
+Để chứng minh các phiên anomaly không chỉ là noise thống kê, nhóm đối chiếu top-5 phiên có |z| lớn nhất của
+BTC và DOGE với các sự kiện vĩ mô (bảng 4.5).
+Bảng 4.5: Top phiên anomaly và sự kiện vĩ mô tương ứng
+Coin
+
+Ngày
+
+Close (USD)
+
+Return
+
+Sự kiện vĩ mô tương ứng
+
+BTC
+BTC
+BTC
+DOGE
+DOGE
+ETH
+ETH
+
+2024-11-11
+2025-07-10
+2026-02-05
+2024-11-10
+2024-11-11
+2024-05-20
+2025-05-08
+
+88 648
+116 010
+62 910
+0.28
+0.35
+3 662
+2 207
+
++9.80%
++4.20%
+−15.10%
++23.82%
++23.50%
++17.59%
++19.79%
+
+Trump thắng cử (5/11) – BTC rally vượt 89k
+Spot BTC ETF đạt AUM kỷ lục
+Fed pause cắt lãi suất + tin tức trade war
+Hiệu ứng “Trump + Musk DOGE meme”
+DOGE rally tiếp ngày thứ 2 sau Trump win
+SEC chuẩn bị duyệt Spot ETH ETF (23/5)
+Pectra upgrade ETH mainnet hoạt động
+
+Phân tích: Tất cả các phiên anomaly liệt kê đều có nguyên nhân kinh tế hoặc chính trị rõ ràng, không phải
+lỗi dữ liệu hay nhiễu thống kê. Đặc biệt:
+ Cụm DOGE 10–11/11/2024 (+23.82% rồi +23.50%) thể hiện hiệu ứng volatility clustering – một phiên
+
+cực đoan thường kéo theo phiên cực đoan khác.
+ BTC giảm −15.10% ngày 05/02/2026 cho thấy crypto vẫn nhạy cảm cao với chính sách tiền tệ Mỹ – một
+
+phát hiện quan trọng cho nhà đầu tư danh mục.
+Ứng dụng thực tiễn:
+ Cảnh báo sớm: Khi |zt | > 2 kết hợp Volume Spike, hệ thống nên gửi alert ngay (đã tích hợp trong tab
+
+Anomaly Detection của Streamlit Dashboard).
+ Lọc dữ liệu: Các phiên anomaly có thể được winsorize trước khi tính Sharpe ratio, VaR để tránh bị méo
+
+[4].
+ Backtest: Khi xây dựng chiến lược giao dịch, các phiên anomaly là test case quan trọng – hệ thống stop-loss
+
+phải xử lý đúng các sự kiện cực đoan này.
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 30/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+5
+
+Tích hợp Business Intelligence và Xây dựng Dashboard
+
+Sau khi hoàn tất quá trình ETL và khai phá dữ liệu, nhóm thực hiện xây dựng lớp trình bày (Presentation
+Layer) sử dụng song song hai nền tảng: Microsoft Power BI Desktop (cho đối tượng quản trị / lãnh đạo) và
+Streamlit (cho phân tích viên kỹ thuật). Mục tiêu là chuyển đổi kết quả phân tích từ SQL và Python thành
+hệ thống báo cáo tương tác phục vụ ra quyết định [12].
+
+5.1
+
+Hiện thực hóa mô hình dữ liệu trong Power BI
+
+Dữ liệu từ Gold Layer trong PostgreSQL được nạp vào Power BI thông qua hai phương án:
+ DirectQuery / Import qua Npgsql ODBC – chế độ production khi PostgreSQL đã được triển khai.
+ CSV Import qua script tools/export_gold_for_powerbi.py – chế độ thử nghiệm nhanh, không
+
+cần PostgreSQL. Script này xuất 4 tệp CSV (fact_market_daily.csv, dim_coin.csv, dim_date.csv,
+dim_category.csv) tương ứng các bảng trong Star Schema.
+Trong Model View của Power BI, kiến trúc Star Schema được hiện thực hóa với bảng sự kiện trung tâm
+fact_market_daily kết nối với ba bảng chiều qua quan hệ many-to-one (Hình 5.1).
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 31/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 5.1: Power BI Model View – Star Schema với 3 active relationships
+
+Việc đánh dấu dim_date bằng Mark as date table cho phép Power BI tự động sinh Date Hierarchy (Year →
+Quarter → Month → Day), phục vụ cho thao tác Drill-down – một tính năng nền tảng của OLAP [5].
+
+5.2
+
+Phân hệ 1 – Crypto Market Overview
+
+Phân hệ này phục vụ nhu cầu theo dõi tổng quan thị trường, dành cho lãnh đạo và nhà đầu tư cá nhân.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 32/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 5.2: Power BI Dashboard – Crypto Market Overview
+
+Dashboard này (Hình 5.2) gồm bốn vùng visual chính:
+ KPI Cards (hàng đầu): 5 số liệu tổng quan – Total Volume USD (∼ $3,933B), Avg Daily Return
+
+(+0.053%), Anomaly Days (874 phiên, ∼ 12%), Bull/Bear Days, và Coins Selected. Dùng DAX measure
+như:
+Total Volume USD = SUM(fact_market_daily[volume_usd])
+Anomaly Days = CALCULATE(COUNTROWS(fact_market_daily),
+fact_market_daily[is_anomaly] = TRUE())
+
+ Daily Close Price (line chart): Top-5 coin theo volume, chuẩn hoá về 1.0 đầu kỳ – cho phép so sánh
+
+hiệu suất tích lũy trực quan.
+ Market Dominance (donut): Tỷ trọng volume_usd của từng coin – BTC chiếm ∼ 25%, ETH ∼ 20%,
+
+phần còn lại chia đều.
+ Volume Leaderboard (horizontal bar): Xếp hạng thanh khoản trung bình ngày – giúp xác định coin
+
+nào có liquidity đủ cho giao dịch khối lượng lớn.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 33/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+5.3
+
+Phân hệ 2 – Data Mining Insights
+
+Phân hệ này trực quan hoá kết quả của các kỹ thuật khai phá dữ liệu (mục 4.3), phục vụ phòng phân tích định
+lượng.
+
+Hình 5.3: Power BI Dashboard – Data Mining Insights
+
+Dashboard này (Hình 5.3) gồm bốn visual:
+ Risk-Return Scatter (scatter plot): Trục X = Volatility (std return), trục Y = Mean Return, kích
+
+thước bubble = Volume, màu = Category. Visual này tái hiện kết quả K-Means clustering ở mục 4.3.2
+trong môi trường tương tác – người dùng có thể click vào một bubble để filter các visual khác.
+ Regime Distribution (stacked bar): Tỷ lệ ngày Bull/Sideways/Bear cho từng coin. Màu xanh lá =
+
+Bull, vàng = Sideways, đỏ = Bear.
+ Top Anomalies per Coin (horizontal bar): Số phiên có |z_score| > 2 – cho thấy TRX là coin có
+
+nhiều anomaly nhất (107 phiên).
+ Top-10 Extreme Anomalies (table): Danh sách phiên cực đoan nhất theo |z| – tham chiếu trực tiếp
+
+gold.v_top_anomalies view.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 34/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+5.4
+
+Tính năng OLAP Drill-down
+
+Đặc trưng quan trọng của Power BI là khả năng drill-down dọc theo Date Hierarchy của dim_date [5]. Hình
+5.4 minh hoạ thao tác drill-down 3 cấp cho BTC: từ tổng hợp năm → quý → tháng.
+
+Hình 5.4: OLAP Drill-down: Year → Quarter → Month cho BTC
+
+Quy trình thao tác:
+1. Level 1 (Year): Bar chart hiển thị tổng return_pct mỗi năm.
+2. Level 2 (Quarter): Click chuột phải → Drill down vào năm có biến động lớn nhất – bar chart đổi sang
+Q1/Q2/Q3/Q4.
+3. Level 3 (Month): Tiếp tục drill down vào quý có anomaly cao nhất – bar chart đổi sang từng tháng, lộ
+ra tháng cụ thể có sự kiện.
+Đây chính là chuỗi thao tác OLAP cốt lõi (Drill-down + Roll-up) mà Kimball mô tả là “the killer feature of
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 35/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+dimensional modeling” [12].
+
+5.5
+
+Ứng dụng Streamlit Dashboard
+
+Bên
+
+cạnh
+
+Power
+
+BI,
+
+nhóm
+
+còn
+
+xây
+
+dựng
+
+một
+
+dashboard
+
+tương
+
+tác
+
+bằng
+
+Python
+
+Stream-
+
+lit (streamlit_crypto.py). Ứng dụng kết nối trực tiếp PostgreSQL hoặc CSV (qua wrapper
+streamlit_crypto_csv.py), cho phép người dùng tùy chỉnh tham số và quan sát các biểu đồ Plotly trên
+nền tảng Web – chi tiết xem chương Demo (mục 6).
+
+5.6
+
+So sánh hai nền tảng
+Bảng 5.1: So sánh Power BI và Streamlit cho dự án CryptoDW
+Khía cạnh
+
+Power BI Desktop
+
+Streamlit
+
+Đối tượng người dùng
+Học cách dùng
+Tuỳ biến chuyên sâu
+Triển khai chia sẻ
+Chi phí licence
+Refresh dữ liệu
+
+Lãnh đạo, không-coder
+Drag & drop, dễ
+Hạn chế (DAX)
+Power BI Service (cloud)
+Cần PRO licence cho share
+Manual / Scheduled
+
+Phân tích viên kỹ thuật
+Cần biết Python
+Toàn quyền (Python + Plotly)
+Streamlit Cloud / Docker
+Miễn phí mã nguồn mở
+Realtime khi có request
+
+Việc cung cấp song song cả hai nền tảng đáp ứng được nhu cầu đa tầng trong tổ chức: lãnh đạo dùng Power
+BI để xem báo cáo tổng hợp định kỳ, trong khi phân tích viên dùng Streamlit để khai thác dữ liệu chuyên sâu
+[17].
+
+6
+
+Demo hệ thống
+
+Nhóm xây dựng hệ thống Dashboard tương tác giúp người dùng theo dõi và phân tích thị trường Crypto.
+Hệ thống được triển khai trên nền tảng Streamlit (Python + Plotly), kết nối trực tiếp với PostgreSQL
+Database (Gold Layer) hoặc đọc trực tiếp từ các tệp CSV xuất từ tầng Gold (chế độ “CSV mode” qua
+streamlit_crypto_csv.py).
+
+6.1
+
+Giao diện Dashboard Streamlit
+
+Giao diện được thiết kế theo phong cách Dark Theme với 5 tab chức năng chính tương ứng với năm góc nhìn
+phân tích khác nhau.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 36/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 6.1: Tab Overview – Tổng quan thị trường: KPI bar (Total Volume, Avg Daily Return, Anomaly Days, Bull/Bear
+Days, Coins Selected) và Daily Close Price chart cho toàn bộ 10 đồng coin.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 37/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 6.2: Tab Price & Volume – Candlestick chart kèm volume bars cho từng coin, có Return Distribution histogram
+và Volatility timeline.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 38/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 6.3: Tab Anomaly Detection – Z-Score rolling 30 ngày với các phiên anomaly (|z| > 2) đánh dấu đỏ, kèm
+Anomaly Rate per Coin và bảng Top 10 Extreme Anomalies.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 39/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 6.4: Tab OLAP Views – Weekly Avg Return facet theo Category (L1/L2/Meme/Payment), Correlation Heatmap
+và Volume Leaderboard.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 40/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Hình 6.5: Tab Data Explorer – Bảng dữ liệu thô với filter theo Regime/Anomaly, hỗ trợ download CSV.
+
+6.2
+
+Kịch bản Demo
+
+Quy trình demo hệ thống bao gồm 4 bước chính:
+1. Cập nhật dữ liệu: Chạy run_pipeline.bat (Windows) hoặc run_pipeline.sh (Linux/WSL) để kích
+hoạt luồng ETL: Binance API → Staging → Transform → Gold Layer → refresh OLAP views.
+2. Phân tích OLAP: Sử dụng tab Overview và Price & Volume để slice/dice theo coin và khoảng thời gian;
+quan sát Market Dominance, Regime Distribution và Volume Leaderboard.
+3. Khai phá dữ liệu: Truy cập tab Anomaly Detection để xem các phiên có |z_score| > 2. Mở Jupyter
+notebooks trong thư mục ai/ để xem kết quả Linear Regression, K-Means clustering và Anomaly Detection
+ở mức code chi tiết.
+4. Báo cáo quản trị: Mở Power BI Dashboard (bi/Crypto_Dashboard.pbix) để xem báo cáo tổng hợp
+theo quý và năm.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 41/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+6.3
+
+CSV mode – chạy không cần PostgreSQL
+
+Để hỗ trợ giảng viên/đồng nghiệp chạy thử nhanh mà không cần cài đặt PostgreSQL, nhóm
+bổ sung script streamlit_crypto_csv.py đọc trực tiếp 4 tệp CSV xuất từ tầng Gold (sinh bởi
+tools/export_gold_for_powerbi.py). Câu lệnh chạy:
+streamlit run streamlit_crypto_csv.py
+Các screenshot trong báo cáo này được sinh tự động bằng tools/screenshot_streamlit.py (sử dụng Playwright headless Chromium) để bảo đảm dữ liệu hiển thị nhất quán với kết quả phân tích trong các chương
+Visualization, OLAP và Data Mining.
+
+7
+
+Phân tích, thảo luận và hướng phát triển
+
+7.1
+
+Tổng quan kết quả chính
+
+Trong giai đoạn phân tích từ 27/04/2024 đến 26/04/2026, dự án CryptoDW-ETL đã đạt được các kết quả quan
+trọng:
+ Pipeline ETL hoàn chỉnh: Thu thập, làm sạch và nạp ∼ 7 300 dòng dữ liệu vào Star Schema chuẩn –
+
+toàn bộ tự động hoá qua run_pipeline.bat.
+ Hiệu suất và Lợi nhuận: Thị trường Crypto thể hiện sự phân hoá cực mạnh. Các đồng nền tảng (BTC,
+
+BNB, TRX) có lợi suất ổn định, trong khi nhóm Speculative (ADA, DOGE, DOT, MATIC) ghi nhận
+drawdown −76% đến −89%.
+ Anomaly Detection: Phát hiện 874 phiên bất thường (∼ 12% tổng số phiên), trong đó các phiên cực
+
+đoan đều có nguyên nhân kinh tế / chính trị rõ ràng (Trump win, ETF approval, Fed policy) – chứng
+minh hệ thống không phát hiện noise mà phát hiện sự kiện thực.
+ K-Means Clustering: Phân loại 10 coin thành 3 nhóm Leaders / Mid-cap / Speculative, validated bằng
+
+Silhouette score – kết quả nhất quán với phân loại risk-level định tính ban đầu.
+ Hai dashboard song song: Power BI cho lãnh đạo, Streamlit cho phân tích viên kỹ thuật.
+
+7.2
+
+Ý nghĩa và Ứng dụng
+
+Dự án đã biến dữ liệu thô từ sàn Binance thành một hệ thống hỗ trợ quyết định có cấu trúc [12]:
+ Đối với nhà đầu tư: Dashboard cung cấp cái nhìn tổng quan về rủi ro của từng danh mục coin, hỗ trợ
+
+phân bổ vốn tối ưu theo khẩu vị (Modern Portfolio Theory [3]).
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 42/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ Đối với nhà quản trị hệ thống: Quy trình ETL tự động hoá hoàn toàn giúp giảm thiểu sai sót con
+
+người và đảm bảo tính kịp thời của thông tin (Data Quality Dimensions [9]).
+ Đối với nghiên cứu: Kho dữ liệu mở (CSV mode) cho phép tái lập kết quả mà không cần PostgreSQL
+
+– minh bạch và phục vụ học thuật.
+
+7.3
+
+Hạn chế nghiên cứu
+
+Mặc dù đạt được mục tiêu MVP, nhóm thẳng thắn nhìn nhận các hạn chế nghiêm trọng cần ghi nhận:
+7.3.0.1
+
+1. Hạn chế về dữ liệu
+
+ Dữ liệu On-chain: Hệ thống chỉ sử dụng dữ liệu từ sàn tập trung (CEX). Việc thiếu hụt dữ liệu On-chain
+
+(dòng tiền vào/ra ví sàn, hoạt động whales, gas fee) làm giới hạn khả năng dự báo dài hạn.
+ Phân tích tâm lý (Sentiment): Dự án chưa tích hợp dữ liệu từ mạng xã hội (X/Twitter, Reddit), vốn
+
+là yếu tố quan trọng tác động đến giá Crypto – đặc biệt với meme coin như DOGE.
+ MATIC bị delist: Việc Polygon rebrand sang POL khiến chuỗi dữ liệu MATIC kết thúc 09/2024, không
+
+trùng cửa sổ phân tích chính. Kết quả K-Means cho MATIC vì vậy mang tính tham khảo.
+7.3.0.2
+
+2. Hạn chế về mô hình
+
+ Linear Regression – R2 = 0.96 là dấu hiệu data leakage tiềm năng. Mô hình chủ yếu dự báo
+
+CloseT +1 ≈ CloseT (giá hôm nay là chỉ báo dominant cho ngày mai). R2 cao trên test set không đồng
+nghĩa giá trị dự báo thực tế cao – một mô hình “persistence baseline” (luôn dự báo CloseT +1 = CloseT )
+cũng có R2 tương đương. Để đánh giá đúng cần đo directional accuracy (% đoán đúng chiều) và so với
+baseline naı̈ve.
+ K-Means trên n = 10 điểm là thống kê yếu. Với chỉ 10 đối tượng, độ tin cậy của clustering rất hạn
+
+chế – đặc biệt khi dữ liệu thay đổi 1 coin có thể làm thay đổi cluster boundary. Silhouette 0.28 ở k = 3
+chỉ ở mức “moderate” theo thang Kaufman & Rousseeuw, không “strong”.
+ Z-Score Anomaly giả định stationary. Chuỗi giá crypto rõ ràng non-stationary – mean và std thay đổi
+
+theo thời gian. Z-Score rolling 30 ngày là rough heuristic, không có nền tảng lý thuyết chặt chẽ. Phương
+pháp tốt hơn: GARCH [8] hoặc Isolation Forest.
+7.3.0.3
+
+3. Hạn chế về phạm vi
+
+ Quy mô 10 coin
+
+Ö 730 ngày là phạm vi MVP, chưa đủ để rút ra kết luận về toàn thị trường (> 10,000
+
+coin). Việc mở rộng cần xem xét kiến trúc phân tán (Spark/Dask).
+ Không có kiểm thử out-of-sample dài hạn. Mọi backtest đều thực hiện trên cùng cửa sổ dữ liệu 2
+
+năm – chưa đảm bảo mô hình bền với regime change (ví dụ: chuyển từ bull market sang bear market kéo
+dài).
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 43/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+7.4
+
+Hướng phát triển và đề xuất cải tiến
+
+ Nâng cấp mô hình ML:
+
+– Triển khai ARIMA / GARCH cho time-series chuyên ngành [8].
+– Thử LSTM, Temporal Fusion Transformer cho dài hạn (cần dữ liệu lớn hơn).
+– Đo directional accuracy thay vì chỉ R2 .
+ Mở rộng nguồn dữ liệu:
+
+– Tích hợp dữ liệu On-chain qua Glassnode / Dune Analytics.
+– Thu thập sentiment qua Twitter API hoặc CryptoCompare News.
+– Thêm dữ liệu vĩ mô (lãi suất Fed, DXY, gold price) làm exogenous features.
+ Hệ thống cảnh báo tự động:
+
+– Tích hợp Telegram/Discord webhook khi |z| > 2 kèm Volume Spike.
+– Lên lịch refresh pipeline hàng giờ (cron job) thay vì chạy thủ công.
+ Kiến trúc mở rộng:
+
+– Chuyển từ PostgreSQL local sang DuckDB / ClickHouse cho hiệu suất analytical query [15].
+– Triển khai dbt (data build tool) cho transformation tier để dễ test và versioning.
+– Đóng gói dashboard thành Docker để deploy lên cloud.
+
+Phụ lục
+Phụ lục A: Cấu trúc thư mục dự án
+Dưới đây là cấu trúc tổ chức mã nguồn của hệ thống CryptoDW-ETL:
+ ai/: Chứa các Jupyter Notebook phân tích (Regression, Clustering, Anomaly).
+ scripts/: Các script Python thu thập dữ liệu từ Binance API.
+ pdi/: Các tệp Job (.kjb) và Transformation (.ktr) của Pentaho.
+ sql/: Chứa các kịch bản DDL và DML cho PostgreSQL (Raw, Staging, Gold layers).
+ streamlit_crypto.py: Mã nguồn ứng dụng Dashboard tương tác.
+ run_pipeline.bat: Tệp điều khiển chạy toàn bộ luồng ETL.
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 44/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Phụ lục B: Đặc tả SQL DDL (Gold Layer)
+Đoạn mã SQL định nghĩa bảng sự kiện chính trong Kho dữ liệu:
+CREATE TABLE gold.fact_market_daily (
+date_id INT REFERENCES gold.dim_date(date_id),
+coin_id INT REFERENCES gold.dim_coin(coin_id),
+open NUMERIC(18,8),
+high NUMERIC(18,8),
+low NUMERIC(18,8),
+close NUMERIC(18,8),
+volume_usd NUMERIC(20,2),
+return_pct NUMERIC(10,4),
+z_score_close NUMERIC(10,4),
+is_anomaly BOOLEAN,
+regime_label VARCHAR(16),
+market_dominance_pct NUMERIC(6,3),
+PRIMARY KEY (date_id, coin_id)
+);
+
+Phụ lục C: Báo cáo tái sử dụng mã nguồn
+Dự án CryptoDW-ETL được phát triển trên nền tảng dự án phân tích cổ phiếu hàng không (project tiền nhiệm
+cùng nhóm), đạt tỉ lệ tái sử dụng mã nguồn ước tính ∼72%, vượt yêu cầu tối thiểu (70%) của môn học. Bảng
+7.1 liệt kê chi tiết các module được tái sử dụng và mức độ điều chỉnh.
+Bảng 7.1: Báo cáo tái sử dụng mã nguồn – so sánh project tiền nhiệm và CryptoDW-ETL
+Module / Tệp gốc
+
+Tệp mới
+
+% reuse
+
+preprocess_stocks.py (parsers)
+preprocess_stocks.py L165–176 (công thức)
+datamining_analysis.py – Linear Regression
+datamining_analysis.py – K-Means
+datamining_analysis.py – Z-Score
+olap_analysis.py (pivot)
+streamlit.py (Stocks)
+Stock_Analysis_Dashboard.pbix
+
+scripts/parsers.py
+Pentaho Calculator + SQL
+ai/01_regression.ipynb
+ai/02_clustering.ipynb
+ai/03_anomaly.ipynb
+sql/04_olap_views.sql
+streamlit_crypto.py
+bi/Crypto_Dashboard.pbix
+
+100%
+100%
+80%
+70%
+80%
+50%
+70%
+60%
+
+Thay đổi chính
+Giữ nguyên hoàn toàn
+Cùng công thức, đổi engine
+Đổi target, thêm lag features
+Thêm validation Elbow/Silhouette
+Đổi static → rolling 30d
+Đổi từ pandas → SQL views
+Đổi nguồn CSV → PostgreSQL
+Đổi schema, giữ measures DAX
+
+Cách tính tỉ lệ: Đo bằng số dòng code thực sự được copy hoặc adapt từ project gốc, chia cho tổng số dòng
+code trong project mới (không tính file dữ liệu, comment, docstring). Trung bình có trọng số theo độ phức tạp
+của module:
+P
+Reusetổng =
+
+× %reusei )
+i (LoC
+Pi
+i LoCi
+
+≈ 72%
+
+Các thành phần được phát triển mới (28%):
+ scripts/1_fetch_binance.py – Module ingestion cho Binance API.
+ seed/dim_coin.csv, seed/dim_category.csv – Master data riêng cho crypto.
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 45/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+ etl/pdi/*.kjb – Pentaho jobs cho pipeline.
+ run_pipeline.bat / .sh – Orchestration scripts.
+ tools/ – Utility scripts (export PBI, generate images).
+ Phần lớn nội dung báo cáo LaTeX và 4 dashboard layouts.
+
+Thư viện ngoài (third-party): pandas, numpy [13], scikit-learn [14], plotly, streamlit, requests,
+psycopg2, sqlalchemy.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 46/47
+
+Trường Đại học Bách khoa ĐHQG–HCM
+Khoa Khoa học và Kỹ thuật Máy tính
+
+Tài liệu
+[1] Abonyi, J. & Feil, B., 2007, Cluster Analysis for Data Mining and System Identification, Birkhäuser.
+[2] Bishop, C., 2006, Pattern Recognition and Machine Learning, Springer.
+[3] Bodie, Z., Kane, A. & Marcus, A., 2014, Investments, McGraw-Hill.
+[4] CFA Institute, 2023, Equity Investments – CFA Program Curriculum, CFA Institute.
+[5] Chaudhuri, S. & Dayal, U., 1997, An Overview of Data Warehousing and OLAP Technology, ACM SIGMOD
+Record.
+[6] Han, J., Kamber, M. & Pei, J., 2011, Data Mining: Concepts and Techniques, Morgan Kaufmann.
+[7] Hull, J., 2017, Options, Futures, and Other Derivatives, Pearson.
+[8] Hyndman, R. & Athanasopoulos, G., 2021, Forecasting: Principles and Practice, OTexts.
+[9] Inmon, W. H., 2005, Building the Data Warehouse, Wiley.
+[10] Binance API Documentation, 2024–2025, Market Data Endpoints – Klines/Candlestick Data.
+Truy cập tại: https://binance-docs.github.io/apidocs/spot/en/
+[11] James, G., Witten, D., Hastie, T. & Tibshirani, R., 2021, An Introduction to Statistical Learning, Springer.
+[12] Kimball, R. & Ross, M., 2013, The Data Warehouse Toolkit, Wiley.
+[13] McKinney, W., 2017, Python for Data Analysis, O’Reilly.
+[14] Scikit-learn Developers, 2023, Scikit-learn User Guide, scikit-learn.org.
+[15] Silberschatz, A., Korth, H. & Sudarshan, S., 2019, Database System Concepts, McGraw-Hill.
+[16] TradingView, 2024, Technical Indicators Documentation. Truy cập tại: https://www.tradingview.com/
+support/
+[17] VanderPlas, J., 2016, Python Data Science Handbook, O’Reilly.
+
+Bài tập lớn môn Kho dữ liệu và Hệ hỗ trợ quyết định - CO4031
+Học kỳ 251 – Năm học 2025-2026
+
+Trang 47/47
+
+

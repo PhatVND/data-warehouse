@@ -1,0 +1,176 @@
+\documentclass[a4paper,twoside]{article}
+\usepackage{vntex}
+\usepackage{float}
+\usepackage{a4wide,amssymb,epsfig,latexsym,array,hhline,fancyhdr}
+\usepackage[makeroom]{cancel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{xfrac}
+\usepackage{bm}
+\usepackage{multicol,longtable,amscd}
+\usepackage{diagbox}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{alltt}
+\usepackage[framemethod=tikz]{mdframed}% For highlighting paragraph backgrounds
+\usepackage{caption,subcaption}
+\usepackage{makecell}
+
+\input{Configuration/lstlisting-customize.sty}
+
+\usepackage{lastpage}
+\usepackage{totcount}   % For total page count per part
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+% \usepackage{enumerate}  % conflicts with enumitem; removed
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{geometry}
+\usepackage{setspace}
+\setstretch{1.5} % Set the line spacing to 1.5
+% \setlength{\parskip}{6pt} % Set paragraph spacing
+\usepackage{epsfig}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{stackengine}
+\usepackage{atveryend}
+% \usepackage{background}
+
+
+\usetikzlibrary{arrows,snakes,backgrounds}
+\usepackage[unicode]{hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+
+% % Define watermark
+% \backgroundsetup{
+%   scale=1,
+%   color=black,
+%   opacity=0.2,
+%   angle=45,
+%   position=current page.center,
+%   vshift=30pt,
+%   contents={\includegraphics{Image/img_1.png}}
+% }
+
+
+% Renew the figure numbering command to include the section number
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\usepackage{chngcntr}
+\counterwithin{table}{section}
+
+\usepackage[normalem]{ulem}
+
+\newtheorem{theorem}{{\bf Định lý}}
+\newtheorem{property}{{\bf Tính chất}}
+\newtheorem{proposition}{{\bf Mệnh đề}}
+\newtheorem{corollary}[proposition]{{\bf Hệ quả}}
+\newtheorem{lemma}[proposition]{{\bf Bổ đề}}
+\theoremstyle{definition}
+\newtheorem{exer}{Bài toán}
+\def\thesislayout{
+  \geometry{
+    a4paper,           % A4 paper size (210mm x 297mm)
+    inner=20mm,        % Inner margin for binding
+    outer=20mm,        % Outer margin
+    top=20mm,          % Top margin
+    bottom=20mm,       % Bottom margin
+    includeheadfoot    % Include headers and footers within margins
+  }
+}
+
+\thesislayout  % Apply the custom layout
+
+\input{Configuration/header-footer-customize}
+
+\setlength{\parindent}{0pt} % set no tab at the beginning of a paragraph
+\raggedbottom % set up not stretch content
+%%%
+
+% Set paragraph as subsubsubsection
+\titleformat{\paragraph}
+{\normalfont\normalsize\itshape}{\theparagraph}{1em}{}
+
+\newcommand{\ssssection}[1]{\paragraph{#1}}
+
+% Set the depth of section numbering and TOC
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+
+
+
+% Set before and after spacing for each section
+\titlespacing{\section}{0pt}{6ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing{\subsection}{0pt}{2ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing{\subsubsection}{0pt}{2ex plus 1ex minus .2ex}{0ex plus .2ex}
+
+% Set before and after spacing for \paragraph
+\titlespacing{\paragraph}{0pt}{1ex plus 1ex minus .2ex}{0ex plus .2ex}
+
+
+
+
+\everymath{\color{black}}%make in-line maths symbols blue to read/check easily
+
+\sloppy
+\captionsetup[figure]{labelfont={small,bf},textfont={small,it},belowskip=0pt,aboveskip=5pt}
+%space remove between caption, figure, and text
+\captionsetup[table]{labelfont={small,bf},textfont={small,it},belowskip=-1pt,aboveskip=5pt}
+%space remove between caption, table, and text
+
+%\floatplacement{figure}{H}%forced here float placement automatically for figures
+%\floatplacement{table}{H}%forced here float placement automatically for table
+%the following settings (11 lines) are to remove white space before or after the figures and tables
+%\setcounter{topnumber}{2}
+%\setcounter{bottomnumber}{2}
+%\setcounter{totalnumber}{4}
+%\renewcommand{\topfraction}{0.85}
+%\renewcommand{\bottomfraction}{0.85}
+%\renewcommand{\textfraction}{0.15}
+%\renewcommand{\floatpagefraction}{0.8}
+%\renewcommand{\textfraction}{0.1}
+\setlength{\floatsep}{5pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+
+\thesislayout
+
+\usetikzlibrary{calc}
+
+\newcommand{\blankpage}{\newpage \null \thispagestyle{empty} \newpage}
+
+
+\newcommand{\RomanNonPageCountBlankpage}{
+    \newpage \null 
+    \pagenumbering{gobble}
+    \thispagestyle{empty} 
+    \pagenumbering{Roman}
+    \newpage
+}
+
+
+\newcommand{\arabicNonPageCountBlankpage}{
+    \newpage \null 
+    \pagenumbering{gobble}
+    \thispagestyle{empty} 
+    \pagenumbering{arabic}
+    \newpage
+}
+
+
+
+\newcommand{\ctline}[1]{\bigskip \centerline{#1} \bigskip}
+
+\newcommand{\abs}[1]{\left|#1\right|}
+
+\newcommand\xrowht[2][0]{\addstackgap[.5\dimexpr#2\relax]{\vphantom{#1}}}

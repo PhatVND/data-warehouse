@@ -1,0 +1,65 @@
+﻿{
+    "generated_at":  "2026-05-06 18:36:39",
+    "raw_files":  10,
+    "total_rows":  7300,
+    "rows_per_coin":  [
+                          {
+                              "Coin":  "ADA",
+                              "Rows":  730,
+                              "SizeKB":  113.6
+                          },
+                          {
+                              "Coin":  "BNB",
+                              "Rows":  730,
+                              "SizeKB":  116.5
+                          },
+                          {
+                              "Coin":  "BTC",
+                              "Rows":  730,
+                              "SizeKB":  123.3
+                          },
+                          {
+                              "Coin":  "DOGE",
+                              "Rows":  730,
+                              "SizeKB":  116.6
+                          },
+                          {
+                              "Coin":  "DOT",
+                              "Rows":  730,
+                              "SizeKB":  110.6
+                          },
+                          {
+                              "Coin":  "ETH",
+                              "Rows":  730,
+                              "SizeKB":  121.1
+                          },
+                          {
+                              "Coin":  "MATIC",
+                              "Rows":  730,
+                              "SizeKB":  114.2
+                          },
+                          {
+                              "Coin":  "SOL",
+                              "Rows":  730,
+                              "SizeKB":  118.7
+                          },
+                          {
+                              "Coin":  "TRX",
+                              "Rows":  730,
+                              "SizeKB":  114.1
+                          },
+                          {
+                              "Coin":  "XRP",
+                              "Rows":  730,
+                              "SizeKB":  115.2
+                          }
+                      ],
+    "cleaning_checks":  {
+                            "null_ohlcv_or_time":  0,
+                            "high_less_than_low":  0,
+                            "negative_volume":  0,
+                            "future_date":  0,
+                            "symbol_still_has_usdt_suffix":  0,
+                            "duplicate_symbol_open_time_rows":  0
+                        }
+}
